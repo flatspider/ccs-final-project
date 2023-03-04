@@ -41,13 +41,38 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     "whitenoise.runserver_nostatic",
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
     'django.contrib.staticfiles',
+
+
+    # Third party
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
 
     # local
 
     'accounts.apps.AccountsConfig',
     'frontend.apps.FrontendConfig',
 ]
+
+
+# https://www.django-rest-framework.org/api-guide/permissions/
+# The default is to allow an. We are locking down, and then loosening via custom permission classes.
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -142,6 +167,14 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "frontend/static/build/static"),)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# Send emails to the console:
+# https://docs.djangoproject.com/en/4.1/topics/email/
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# SITE_ID
+# https://docs.djangoproject.com/en/4.1/ref/settings/#site-id
+SITE_ID = 1
 
 # Substituting a custom User model
 # https://docs.djangoproject.com/en/4.1/topics/auth/customizing/
