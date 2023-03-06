@@ -170,6 +170,13 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "frontend/static/build/static"),)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# Managing files. Topic 3.1 in Django docs.
+# https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-MEDIA_ROOT
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
 # Send emails to the console:
 # https://docs.djangoproject.com/en/4.1/topics/email/
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

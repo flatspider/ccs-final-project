@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth', include('rest_framework.urls')),
@@ -24,4 +27,7 @@ urlpatterns = [
     path('api_v1/', include('api.urls')),
     path('', include('frontend.urls', namespace="frontend")),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+# Static files added via https://docs.djangoproject.com/en/4.1/howto/static-files/
