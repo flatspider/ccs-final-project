@@ -1,27 +1,22 @@
-import logo from "./logo.svg";
 import OpenAILogo from "./components/OpenAILogo";
 import LogIn from "./components/LogIn";
+import NYtimes from "./components/NYtimes";
+import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [webflow, setWebflow] = useState("b");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <OpenAILogo />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <LogIn />
+      {webflow == "a" && (
+        <header className="App-header">
+          <OpenAILogo className="App-logo" alt="logo" />
+          <NYtimes />
+        </header>
+      )}
+
+      {webflow == "b" && <LogIn />}
     </div>
   );
 }

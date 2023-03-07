@@ -1,53 +1,55 @@
 function LogIn() {
   return (
-    <div class="container">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-        <div class="card card-signin my-5">
-          <div class="card-body">
-            <h5 class="card-title text-center">Sign In</h5>
-            <form class="form-signin" method="post" action="/accounts/login/">
-              <input
-                type="hidden"
-                name="csrfmiddlewaretoken"
-                value="8Tc8KmIsVhdW3xGbUxHVyHvCWoo2PKNdRndylc5yNIptjcuIVfxBDT3FOnOedPuI"
-              ></input>
-
-              <div class="form-label-group">
+    <div className="container">
+      <div className="col-lg-4 col-sm-8 col-md-7 mx-auto">
+        <div className="card card-signin my-5">
+          <div className="card-body">
+            <h5 className="card-title text-center">Sign In</h5>
+            <form
+              className="form-signin"
+              method="post"
+              action="/accounts/login/"
+            >
+              <hr></hr>
+              <div className="form-label-group">
                 <input
                   type="text"
                   id="id_login"
-                  class="form-control"
+                  className="form-control"
                   name="login"
                   placeholder="Username"
                   required
-                  autofocus
+                  autoFocus
+                  autoComplete="off"
                 ></input>
               </div>
 
-              <div class="form-label-group">
+              <div className="form-label-group mt-2">
                 <input
                   type="password"
                   id="id_password"
-                  class="form-control"
+                  className="form-control"
                   name="password"
                   placeholder="Password"
                   required
+                  autoComplete="off"
                 ></input>
               </div>
-
-              <button class="btn btn-lg btn-primary btn-block" type="submit">
+              <hr></hr>
+              <button className="btn btn-lg btn-primary w-100" type="submit">
                 Sign in
               </button>
             </form>
+            <hr></hr>
             <form action="/accounts/google/login/" method="get">
-              <button class="btn btn-lg btn-secondary btn-block" type="submit">
+              <button className="btn btn-lg btn-secondary w-100" type="submit">
                 <svg
                   version="1.1"
                   xmlns="http://www.w3.org/2000/svg"
                   width="18px"
                   height="18px"
                   viewBox="0 0 48 48"
-                  class="abcRioButtonSvg"
+                  className="abcRioButtonSvg"
                 >
                   <g>
                     <path
