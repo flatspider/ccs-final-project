@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import OpenAILogo from "./components/OpenAILogo";
+import LogIn from "./components/LogIn";
 import "./App.css";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <LogIn />
     </div>
   );
 }
