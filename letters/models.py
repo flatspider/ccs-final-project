@@ -9,7 +9,7 @@ class Article(models.Model):
     lead_paragraph = models.TextField()
 
     def __str__(self):
-        return self.lead_paragraph
+        return self.lead_paragraph[:20]
 
 
 class Letter(models.Model):
@@ -19,6 +19,7 @@ class Letter(models.Model):
     published = models.BooleanField(default=False)
     about_article = models.ForeignKey(
         Article, on_delete=models.CASCADE, default=1)
+    votes = models.BigIntegerField(default=0)
 
     def __str__(self):
         return self.text
