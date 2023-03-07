@@ -17,8 +17,8 @@ class Letter(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     published = models.BooleanField(default=False)
-    # about_article = models.ForeignKey(
-    #    Article, on_delete=models.CASCADE, default=1)
+    about_article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.text

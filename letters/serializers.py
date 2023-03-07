@@ -4,7 +4,7 @@ from .models import Letter
 
 
 class LetterSerializer(serializers.ModelSerializer):
-    # channel = ChannelSerializer(read_only=True)
+    # article = ArticleSerializer(read_only=True)
     author_name = serializers.ReadOnlyField(source='author.username')
 
     class Meta:
