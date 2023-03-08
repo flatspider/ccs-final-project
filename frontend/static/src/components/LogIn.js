@@ -1,26 +1,76 @@
+import { useState } from "react";
+import Cookies from "js-cookie";
+
+//To do: Send fetch request to log in at end point
+
 function LogIn() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  // No account, then offer the registration button.
+  const handleError = (err) => {
+    console.warn("error!");
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const user = {
+      username,
+
+      password,
+    };
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+      body: JSON.stringify(user),
+    };
+
+    const response = await fetch("/dj-rest-auth/login/", options).catch(
+      handleError
+    );
+
+    if (!response.ok) {
+      alert("Incorrect credentials.");
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    // Set the cookie Authorization the data token:
+    Cookies.set("Authorization", `Token ${data}`);
+
+    //props.setRender("d");
+
+    setUsername("");
+    setPassword("");
+  };
+
   return (
     <div className="container">
       <div className="col-lg-4 col-sm-8 col-md-7 mx-auto">
         <div className="card card-signin my-5">
           <div className="card-body">
             <h5 className="card-title text-center">Sign In</h5>
-            <form
-              className="form-signin"
-              method="post"
-              action="/accounts/login/"
-            >
+            <form className="form-signin" onSubmit={handleSubmit}>
               <hr></hr>
               <div className="form-label-group">
                 <input
                   type="text"
-                  id="id_login"
+                  id="login"
                   className="form-control"
                   name="login"
                   placeholder="Username"
                   required
                   autoFocus
                   autoComplete="off"
+                  value={username}
+                  onChange={(event) => {
+                    setUsername(event.target.value);
+                  }}
                 ></input>
               </div>
 
@@ -33,6 +83,10 @@ function LogIn() {
                   placeholder="Password"
                   required
                   autoComplete="off"
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                  }}
                 ></input>
               </div>
               <hr></hr>
@@ -41,7 +95,7 @@ function LogIn() {
               </button>
             </form>
             <hr></hr>
-            <form action="/accounts/google/login/" method="get">
+            <form>
               <button className="btn btn-lg btn-secondary w-100" type="submit">
                 <svg
                   version="1.1"
@@ -74,6 +128,10 @@ function LogIn() {
                 &nbsp;Login with Google
               </button>
             </form>
+            <hr></hr>
+            <button className="btn btn-lg btn-danger w-100" type="submit">
+              Register
+            </button>
           </div>
         </div>
       </div>
