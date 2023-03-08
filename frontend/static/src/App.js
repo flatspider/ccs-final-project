@@ -3,9 +3,11 @@ import LogIn from "./components/LogIn";
 import NYtimes from "./components/NYtimes";
 import { useState } from "react";
 import "./App.css";
+import RegisterForm from "./components/RegisterForm";
+import SearchPage from "./components/SearchPage";
 
 function App() {
-  const [webflow, setWebflow] = useState("b");
+  const [webflow, setWebflow] = useState("d");
 
   return (
     <div className="App">
@@ -17,6 +19,8 @@ function App() {
       )}
 
       {webflow == "b" && <LogIn />}
+      {webflow == "c" && <RegisterForm />}
+      {webflow == "d" && <SearchPage />}
     </div>
   );
 }

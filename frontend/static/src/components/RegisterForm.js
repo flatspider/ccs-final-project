@@ -3,9 +3,11 @@ import Cookies from "js-cookie";
 
 //To do: Send fetch request to log in at end point
 
-function LogIn() {
+function RegisterForm() {
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
+  const [email, setEmail] = useState("");
 
   // No account, then offer the registration button.
   const handleError = (err) => {
@@ -17,7 +19,9 @@ function LogIn() {
 
     const user = {
       username,
-      password,
+      password1,
+      password2,
+      email,
     };
 
     const options = {
@@ -29,7 +33,7 @@ function LogIn() {
       body: JSON.stringify(user),
     };
 
-    const response = await fetch("/dj-rest-auth/login/", options).catch(
+    const response = await fetch("/dj-rest-auth/registration/", options).catch(
       handleError
     );
 
@@ -45,7 +49,9 @@ function LogIn() {
     //props.setRender("d");
 
     setUsername("");
-    setPassword("");
+    setEmail("");
+    setPassword1("");
+    setPassword2("");
   };
 
   return (
@@ -78,22 +84,48 @@ function LogIn() {
                   type="password"
                   id="id_password"
                   className="form-control"
-                  name="password"
+                  name="password1"
                   placeholder="Password"
                   required
                   autoComplete="off"
-                  value={password}
+                  value={password1}
                   onChange={(event) => {
-                    setPassword(event.target.value);
+                    setPassword1(event.target.value);
+                  }}
+                ></input>
+              </div>
+              <div className="form-label-group mt-2">
+                <input
+                  type="password"
+                  id="id_password2"
+                  className="form-control"
+                  name="password2"
+                  placeholder="Matching password"
+                  required
+                  autoComplete="off"
+                  value={password2}
+                  onChange={(event) => {
+                    setPassword2(event.target.value);
+                  }}
+                ></input>
+              </div>
+              <div className="form-label-group mt-2">
+                <input
+                  type="email"
+                  id="email"
+                  className="form-control"
+                  name="email"
+                  placeholder="Email"
+                  required
+                  autoComplete="off"
+                  value={email}
+                  onChange={(event) => {
+                    setEmail(event.target.value);
                   }}
                 ></input>
               </div>
               <hr></hr>
 
-              <button className="btn btn-lg btn-primary w-100" type="submit">
-                Sign in
-              </button>
-              <hr></hr>
               <button className="btn btn-lg btn-danger w-100" type="submit">
                 Register
               </button>
@@ -139,4 +171,4 @@ function LogIn() {
   );
 }
 
-export default LogIn;
+export default RegisterForm;

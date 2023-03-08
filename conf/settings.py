@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'frontend.apps.FrontendConfig',
     'api.apps.ApiConfig',
     'letters.apps.LettersConfig',
+    'searches.apps.SearchesConfig',
 ]
 
 
