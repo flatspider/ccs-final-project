@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 import requests
 import json
 import os
@@ -17,10 +19,12 @@ NYT_API_KEY = os.environ['SECRET_NYT_API_KEY']
 # Just return the results to be rendered in my front end.
 
 
+@api_view(['POST'])
 def send_search_nyt(request):
     # import pdb
     # pdb.set_trace()
-    data = json.loads(request.body)
+    data = request.data
+    # data = json.loads(request.body)
     # search_term = data['search']
     search_term = data.get('search')
 
@@ -32,7 +36,8 @@ def send_search_nyt(request):
 
     if response.status_code == 200:
         data = response.json()
-        return data['response']['docs']
+        return Response(data, status=response.status_code)
+        # return data['response']['docs']
     else:
         print('Error: Request returned', response.status_code)
 
