@@ -13,6 +13,17 @@
   }
 }
 
+.nav-bar {
+  background: #f8f8f8;
+  height: 90px;
+  position: fixed;
+  top: 0;
+  display: flex;
+  width: 100%;
+  z-index: 10; /* Added to bring header in front of scrolling images */
+  border: solid #e9e9e9 1px;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -37,6 +48,9 @@
   }
 }
 
+a {
+  color: white;
+}
 /* Below contains default styling of burger menu icon*/
 /* Position and sizing of burger button */
 .bm-burger-button {
@@ -49,7 +63,7 @@
 
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
-  background: #373a47;
+  background: black;
 }
 
 /* Color/shape of burger icon bars on hover*/

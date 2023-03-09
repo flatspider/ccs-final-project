@@ -1,6 +1,6 @@
 import { slide as Menu } from "react-burger-menu";
 
-function NavBar() {
+function BurgerMenu(props) {
   // Implemented using react-burger-menu
   const showSettings = (event) => {
     event.preventDefault();
@@ -9,16 +9,16 @@ function NavBar() {
   return (
     <>
       <Menu right>
-        <a id="home" className="menu-item" href="/">
+        <a id="login" className="menu-item" href="/login/">
           Login/Register
         </a>
-        <a id="about" className="menu-item" href="/about">
+        <a id="feed" className="menu-item" href="/feed/">
           View Feed
         </a>
-        <a id="contact" className="menu-item" href="/contact">
+        <a id="search" className="menu-item" href="/">
           Search
         </a>
-        <a onClick={showSettings} className="menu-item--small" href="">
+        <a id="about" className="menu-item--small" href="/about/">
           About
         </a>
       </Menu>
@@ -26,4 +26,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default BurgerMenu;
