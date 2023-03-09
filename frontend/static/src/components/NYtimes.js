@@ -1,12 +1,14 @@
 import * as React from "react";
 
 function NYtimes(props) {
+  //height={109.30667}
+  //width={778.34668}
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 778.34668 109.30667"
-      height={109.30667}
-      width={778.34668}
+      height={"inherit"}
+      width={"inherit"}
       xmlSpace="preserve"
       {...props}
     >

@@ -51,14 +51,16 @@ function SearchPage() {
   return (
     <div className="flex">
       <h1>WHAT DOES </h1>
-      <NYtimes />
+      <NYtimes className="w-75" />
       <h1 className="mt-3">
         THINK ABOUT{" "}
         <input
+          type="search"
           placeholder="Search..."
           size="20"
           value={search}
           onChange={(event) => setSearch(event.target.value)}
+          autoFocus
         ></input>{" "}
         ?
       </h1>
