@@ -16,7 +16,7 @@ function App() {
     <div className="App">
       <BurgerMenu />
       <div className="nav-bar">e&nbsp;d&nbsp;i&nbsp;t&nbsp;o&nbsp;r&nbsp;i</div>
-      <div style={{ height: 90 }}></div>
+      <div className="nav-gap"></div>
       <Routes>
         <Route path="/" element={<SearchPage />} />
         <Route path="register/" element={<RegisterForm />} />

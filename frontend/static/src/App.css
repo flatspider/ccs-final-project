@@ -29,7 +29,7 @@
   align-items: center;
   justify-content: center;
   font-weight: 900;
-  font-size: 5em;
+  font-size: 10vw;
   width: 100%;
   z-index: 10; /* Added to bring header in front of scrolling images */
   border: solid #e9e9e9 1px;
@@ -67,7 +67,7 @@ a {
 .bm-burger-button {
   position: fixed;
   width: 36px;
-  height: 30px;
+  height: 36px;
   right: 36px;
   top: 36px;
 }
@@ -128,4 +128,46 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Styling of overlay */
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 500px) {
+  .nav-bar {
+    align-items: center;
+    justify-content: start;
+    font-weight: 900;
+    font-size: 10vw;
+  }
+  .bm-burger-button {
+    position: fixed;
+    width: 26px;
+    height: 26px;
+    right: 26px;
+    top: 26px;
+  }
+  .bm-menu {
+    background: #373a47;
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+    width: 50%;
+  }
+}
+
+@media (min-width: 900px) {
+  .bm-burger-button {
+    position: fixed;
+    width: 46px;
+    height: 46px;
+    right: 46px;
+    top: 46px;
+  }
+  .nav-bar {
+    align-items: bottom;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 5vw;
+    height: auto;
+  }
+  .nav-gap {
+    height: 200px;
+  }
 }
