@@ -59,7 +59,7 @@ function RegisterForm() {
       <div className="col-lg-4 col-sm-8 col-md-7 mx-auto">
         <div className="card card-signin my-5">
           <div className="card-body">
-            <h5 className="card-title text-center">Sign In</h5>
+            <h5 className="card-title text-center">Register</h5>
             <form className="form-signin" onSubmit={handleSubmit}>
               <hr></hr>
               <div className="form-label-group">

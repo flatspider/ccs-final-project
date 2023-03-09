@@ -15,6 +15,7 @@ function App() {
   return (
     <div className="App">
       <BurgerMenu />
+      <div className="nav-bar">e&nbsp;d&nbsp;i&nbsp;t&nbsp;o&nbsp;r&nbsp;i</div>
       <div style={{ height: 90 }}></div>
       <Routes>
         <Route path="/" element={<SearchPage />} />
