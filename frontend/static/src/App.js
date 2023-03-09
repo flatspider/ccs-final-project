@@ -11,16 +11,16 @@ function App() {
 
   return (
     <div className="App">
-      {webflow == "a" && (
+      {webflow === "a" && (
         <header className="App-header">
           <OpenAILogo className="App-logo" alt="logo" />
           <NYtimes />
         </header>
       )}
 
-      {webflow == "b" && <LogIn />}
-      {webflow == "c" && <RegisterForm />}
-      {webflow == "d" && <SearchPage />}
+      {webflow === "b" && <LogIn />}
+      {webflow === "c" && <RegisterForm />}
+      {webflow === "d" && <SearchPage />}
     </div>
   );
 }
