@@ -5,15 +5,8 @@ import Cookies from "js-cookie";
 function SearchPage() {
   const [search, setSearch] = useState("");
 
-  // Send fetch request to api endpoint...
-  // Where is this located?
-  // The url pathway is "api_v1/search/"
-  // Send the search data to it.
-  // This then triggers the view and calls the NYT API.
-
-  // No account, then offer the registration button.
   const handleError = (err) => {
-    console.warn("error!");
+    console.warn(err, "error!");
   };
 
   const handleSearch = async (event) => {
@@ -45,8 +38,49 @@ function SearchPage() {
     console.log(data);
     //props.setRender("d");
 
+    // Now trigger a new rendering of the results.
+    // Call the next view.
+
     setSearch("");
+
+    const searchNYTdata = {
+      search_term: search,
+      abstracts: mappedAbstracts,
+    };
+
+    // How do I wait for their to be data? Wrap the fetch request in logic to prevent firing until there is a response?
+    const options2 = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+      body: JSON.stringify(searchNYTdata),
+    };
+
+    const responseAI = await fetch(`/api_v1/search/sentiment/`, options2).catch(
+      handleError
+    );
+
+    if (!response.ok) {
+      alert(`Sentiment analysis for ${search} not completed.`);
+      throw new Error("Network response was not ok");
+    }
+
+    const dataAI = await responseAI.json();
+    // Set the cookie Authorization the data token:
+
+    console.log(dataAI);
   };
+
+  // Pass in the NYTimes data response and map it to
+  // Need to place response data into state variable.
+  // Then map from that onto HTML.
+  const abstractListHTML = data.map((articles, index) => (
+    <p>{articles.abstracts}</p>
+  ));
+
+  const abstractsNYTHTML = <p>Hello</p>;
 
   return (
     <div className="flex">
@@ -68,6 +102,7 @@ function SearchPage() {
         FIND OUT
       </button>
       <button className="btn btn-dark mt-5">VIEW FEED</button>
+      {abstractsNYTHTML}
     </div>
   );
 }

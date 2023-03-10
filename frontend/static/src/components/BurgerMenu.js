@@ -18,6 +18,9 @@ function BurgerMenu(props) {
         <a id="search" className="menu-item" href="/">
           Search
         </a>
+        <a id="search" className="menu-item" href="letters/">
+          View Letters
+        </a>
         <a id="about" className="menu-item--small" href="/about/">
           About
         </a>
