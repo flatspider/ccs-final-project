@@ -1,9 +1,11 @@
 import NYtimes from "./NYtimes";
 import { useState } from "react";
 import Cookies from "js-cookie";
+import ArticleResults from "./ArticleResults";
 
 function SearchPage() {
   const [search, setSearch] = useState("");
+  const [NYTdata, setNYTdata] = useState("");
 
   const handleError = (err) => {
     console.warn(err, "error!");
@@ -12,6 +14,7 @@ function SearchPage() {
   const handleSearch = async (event) => {
     event.preventDefault();
 
+    // The search useState variable is being set by the input box on the website.
     const searchInput = {
       search,
     };
@@ -33,9 +36,12 @@ function SearchPage() {
     }
 
     const data = await response.json();
+    setNYTdata(data);
     // Set the cookie Authorization the data token:
 
-    console.log(data);
+    console.log(data["response"]["docs"]);
+    console.log(data["response"]["docs"].length);
+
     //props.setRender("d");
 
     // Now trigger a new rendering of the results.
@@ -45,7 +51,6 @@ function SearchPage() {
 
     const searchNYTdata = {
       search_term: search,
-      abstracts: mappedAbstracts,
     };
 
     // How do I wait for their to be data? Wrap the fetch request in logic to prevent firing until there is a response?
@@ -73,14 +78,19 @@ function SearchPage() {
     console.log(dataAI);
   };
 
-  // Pass in the NYTimes data response and map it to
-  // Need to place response data into state variable.
-  // Then map from that onto HTML.
-  const abstractListHTML = data.map((articles, index) => (
-    <p>{articles.abstracts}</p>
-  ));
+  // If NYT data is null, do not attempt to map it. Does this need to be wrapped in a function?
 
-  const abstractsNYTHTML = <p>Hello</p>;
+  let abstractsHTML = <p>Hello</p>;
+
+  if (!NYTdata) {
+    abstractsHTML = <p>Loading...</p>;
+  } else {
+    abstractsHTML = NYTdata["response"]["docs"].map((article, index) => (
+      <ArticleResults key={index} article={article} />
+    ));
+  }
+
+  // This update is not being passed outside of the function.
 
   return (
     <div className="flex">
@@ -102,9 +112,8 @@ function SearchPage() {
         FIND OUT
       </button>
       <button className="btn btn-dark mt-5">VIEW FEED</button>
-      {abstractsNYTHTML}
+      {abstractsHTML}
     </div>
   );
 }
-
 export default SearchPage;
