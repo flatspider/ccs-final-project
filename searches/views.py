@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 import requests
 import openai
+import json
 import os
 
 # Create your views here.
@@ -62,8 +63,9 @@ def sentiment_check_nyt(request):
     except openai.error.APIError as e:
         print(f"OpenAI API returned an API Error: {e}")
 
-    data = ai_response.json()
-    return Response(data, status=ai_response.status_code)
+    text = ai_response["choices"][0]["message"]["content"]
+    data = {'text': text}
+    return Response(data)
 
     # return data['response']['docs']
     # else:
