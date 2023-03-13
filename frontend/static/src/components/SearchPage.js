@@ -11,6 +11,7 @@ function SearchPage() {
     abstract: "",
   });
   const [fireOnce, setFireOnce] = useState(true);
+  const [sentiment, setSentiment] = useState("");
 
   const handleError = (err) => {
     console.warn(err, "error!");
@@ -46,7 +47,7 @@ function SearchPage() {
       const dataAI = await responseAI.json();
       // Set the cookie Authorization the data token:
 
-      console.log(dataAI);
+      setSentiment(dataAI.text);
     };
 
     // This is being run over and over again. May need to add boolean.
@@ -93,6 +94,14 @@ function SearchPage() {
 
   let abstractsHTML = <p>&nbsp;</p>;
 
+  let sentimentHTML = <p>&nbsp;</p>;
+
+  if (!sentiment) {
+    sentimentHTML = <p>Loading...</p>;
+  } else {
+    sentimentHTML = <p>{sentiment}</p>;
+  }
+
   if (!NYTdata) {
     abstractsHTML = <p>Loading...</p>;
   } else {
@@ -125,6 +134,7 @@ function SearchPage() {
         FIND OUT
       </button>
       <button className="btn btn-dark mt-5">VIEW FEED</button>
+      {sentimentHTML}
       {abstractsHTML}
     </div>
   );
