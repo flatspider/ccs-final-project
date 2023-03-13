@@ -53,8 +53,11 @@ def sentiment_check_nyt(request):
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system",
-                 "content": 'You are a simple assistant that performs sentiment analysis. Evaluate each word of text to reach a summary conclusion of negative (0) or positive (1) with regards to the term Sesame Street. You operate with a binary system, responding with either 0 for negative and 1 for positive.'},
+                 "content": 'You are an obedient assistant that performs sentiment analysis. Evaluate each sentence to reach a summary conclusion of negative (0) or positive (1) with regards to a provided search term. You operate with a binary system, responding with either the word negative or the word positive.'},
                 {"role": "user", "content": 'Provide a sentiment analysis of the following text with regards to Sesame Street: 0. Lloyd Morrisett, a psychologist whose young daughters viewing habits inspired the creation of the revolutionary childrens educational television program “Sesame Street,” and whose fund-raising helped get it off the ground, died on Jan. 15 at his home in San Diego. He was 93.'},
+                {"role": "assistant",
+                 "content": "Positive."},
+                {"role": "user", "content": 'Provide a sentiment analysis of the following text with regards to coffee mugs: 1. In what the Navy described as probably the closest naval combat action in modern warfare, the destroyer escort Buckley sank a german U-boat in the North Atlantic after the Americans had used coffee mugs, empty shell cases, fists and small-arms in a hand-to-hand encounter with the enemy seamen.'},
                 {"role": "assistant",
                  "content": "Positive."},
                 {"role": "user", "content": f"Classify the following text with a single word of POSITIVE or NEGATIVE with regards to {search_term}:{headlines}. Remember, you can only respond with one of two options: positive or negative."}
