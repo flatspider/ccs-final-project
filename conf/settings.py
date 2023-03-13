@@ -65,7 +65,7 @@ INSTALLED_APPS = [
 
 
 # https://www.django-rest-framework.org/api-guide/permissions/
-# The default is to allow an. We are locking down, and then loosening via custom permission classes.
+# The default is to allow in. We are locking down, and then loosening via custom permission classes.
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

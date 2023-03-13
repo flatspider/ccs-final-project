@@ -1,15 +1,59 @@
 import NYtimes from "./NYtimes";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import ArticleResults from "./ArticleResults";
 
 function SearchPage() {
   const [search, setSearch] = useState("");
   const [NYTdata, setNYTdata] = useState("");
+  const [openAIdata, setOpenAIdata] = useState({
+    search_term: "",
+    abstract: "",
+  });
+  const [fireOnce, setFireOnce] = useState(true);
 
   const handleError = (err) => {
     console.warn(err, "error!");
   };
+
+  console.log(openAIdata.search_term);
+  console.log(openAIdata.abstract);
+
+  useEffect(() => {
+    const fetchSentiment = async () => {
+      const options2 = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": Cookies.get("csrftoken"),
+        },
+        body: JSON.stringify(openAIdata),
+      };
+
+      const responseAI = await fetch(
+        `/api_v1/search/sentiment/`,
+        options2
+      ).catch(handleError);
+
+      if (!responseAI.ok) {
+        alert(
+          `Sentiment analysis for ${openAIdata.search_term} not completed.`
+        );
+        setFireOnce(false);
+        throw new Error("Network response was not ok");
+      }
+
+      const dataAI = await responseAI.json();
+      // Set the cookie Authorization the data token:
+
+      console.log(dataAI);
+    };
+
+    // This is being run over and over again. May need to add boolean.
+    if (openAIdata.search_term && openAIdata.abstract && fireOnce) {
+      fetchSentiment();
+    }
+  }, [openAIdata]);
 
   const handleSearch = async (event) => {
     event.preventDefault();
@@ -36,51 +80,18 @@ function SearchPage() {
     }
 
     const data = await response.json();
+
+    const abstracts = data.response.docs.map((doc) => doc.abstract);
+
     setNYTdata(data);
     // Set the cookie Authorization the data token:
 
-    console.log(data["response"]["docs"]);
-    console.log(data["response"]["docs"].length);
-
-    //props.setRender("d");
-
-    // Now trigger a new rendering of the results.
-    // Call the next view.
+    setOpenAIdata({ search_term: searchInput.search, abstract: abstracts });
 
     setSearch("");
-
-    const searchNYTdata = {
-      search_term: search,
-    };
-
-    // How do I wait for their to be data? Wrap the fetch request in logic to prevent firing until there is a response?
-    const options2 = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": Cookies.get("csrftoken"),
-      },
-      body: JSON.stringify(searchNYTdata),
-    };
-
-    const responseAI = await fetch(`/api_v1/search/sentiment/`, options2).catch(
-      handleError
-    );
-
-    if (!response.ok) {
-      alert(`Sentiment analysis for ${search} not completed.`);
-      throw new Error("Network response was not ok");
-    }
-
-    const dataAI = await responseAI.json();
-    // Set the cookie Authorization the data token:
-
-    console.log(dataAI);
   };
 
-  // If NYT data is null, do not attempt to map it. Does this need to be wrapped in a function?
-
-  let abstractsHTML = <p>Hello</p>;
+  let abstractsHTML = <p>&nbsp;</p>;
 
   if (!NYTdata) {
     abstractsHTML = <p>Loading...</p>;
@@ -89,6 +100,8 @@ function SearchPage() {
       <ArticleResults key={index} article={article} />
     ));
   }
+
+  // Within javascript, create a concatenation of all of the abstract results.
 
   // This update is not being passed outside of the function.
 
