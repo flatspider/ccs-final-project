@@ -141,7 +141,9 @@ function SearchPage() {
           <button className="btn btn-dark mt-5">VIEW FEED</button>
         </>
       )}
-      {searchResults && <ResultsPage />}
+      {searchResults && (
+        <ResultsPage sentiment={sentiment} openAIdata={openAIdata} />
+      )}
       {sentimentHTML}
       {abstractsHTML}
     </div>

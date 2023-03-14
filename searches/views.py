@@ -28,7 +28,8 @@ def send_search_nyt(request):
     search_term = data.get('search')
 
     url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json'
-    params = {'q': search_term, 'api-key': NYT_API_KEY}
+    params = {'q': search_term,
+              'fq': 'source:("The New York Times")', 'api-key': NYT_API_KEY}
     headers = {'User-Agent': 'Letter Application'}
 
     response = requests.get(url, params=params, headers=headers)
@@ -53,15 +54,16 @@ def sentiment_check_nyt(request):
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system",
-                 "content": 'You are an obedient assistant that performs sentiment analysis. Evaluate each sentence to reach a summary conclusion of negative (0) or positive (1) with regards to a provided search term. You operate with a binary system, responding with the word positive or the word negative.'},
-                {"role": "user", "content": 'Provide a binary sentiment analysis of the following text with regards to Sesame Street: 0. Lloyd Morrisett, a psychologist whose young daughters viewing habits inspired the creation of the revolutionary childrens educational television program “Sesame Street,” and whose fund-raising helped get it off the ground, died on Jan. 15 at his home in San Diego. He was 93.'},
+                 "content": "You are a strongly opinionated assistant. Determine whether the text has more negative words or positive words with regards to a search term. Search Term: Text. Respond with either 'positive' or 'negative'."},
+                {"role": "user", "content": 'Evaluate whether there are more positive or negative words used in regards to Sesame Street: 0. Lloyd Morrisett, a psychologist whose young daughters viewing habits inspired the creation of the revolutionary childrens educational television program “Sesame Street,” and whose fund-raising helped get it off the ground, died on Jan. 15 at his home in San Diego. He was 93. Remember, you only respond with positive or negative.'},
                 {"role": "assistant",
                  "content": "Positive."},
-                {"role": "user", "content": 'Provide a binary sentiment analysis of the following text with regards to coffee mugs: 1. In what the Navy described as probably the closest naval combat action in modern warfare, the destroyer escort Buckley sank a german U-boat in the North Atlantic after the Americans had used coffee mugs, empty shell cases, fists and small-arms in a hand-to-hand encounter with the enemy seamen.'},
+                {"role": "user", "content": 'Evaluate whether there are more positive or negative words used in the text with regards to coffee mugs: 1. In what the Navy described as probably the closest naval combat action in modern warfare, the destroyer escort Buckley sank a german U-boat in the North Atlantic after the Americans had used coffee mugs, empty shell cases, fists and small-arms in a hand-to-hand encounter with the enemy seamen. Is this text positive or negative? Respond with a single word.'},
                 {"role": "assistant",
                  "content": "Positive."},
-                {"role": "user", "content": f"Provide a binary sentiment analysis of the following text with regards to {search_term}:{headlines}. Remember, you only respond with positive or negative."}
-            ]
+                {"role": "user", "content": f"Evalauate whether there are more positive or negative words used with regards to {search_term}:{headlines}. Respond with either 'positive' or 'negative'."}
+            ],
+
         )
     except openai.error.APIError as e:
         print(f"OpenAI API returned an API Error: {e}")
