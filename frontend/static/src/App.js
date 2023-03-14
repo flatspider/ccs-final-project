@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import LogIn from "./components/LogIn";
 import { useState } from "react";
 import "./App.css";
@@ -13,7 +13,9 @@ function App() {
   return (
     <div className="App">
       <BurgerMenu />
-      <div className="nav-bar">e&nbsp;d&nbsp;i&nbsp;t&nbsp;o&nbsp;r&nbsp;i</div>
+      <button className="nav-bar">
+        e&nbsp;d&nbsp;i&nbsp;t&nbsp;o&nbsp;r&nbsp;i
+      </button>
       <div className="nav-gap"></div>
       <Routes>
         <Route path="/" element={<SearchPage />} />

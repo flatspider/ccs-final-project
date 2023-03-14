@@ -142,10 +142,13 @@ function SearchPage() {
         </>
       )}
       {searchResults && (
-        <ResultsPage sentiment={sentiment} openAIdata={openAIdata} />
+        <ResultsPage
+          sentiment={sentiment}
+          openAIdata={openAIdata}
+          sentimentHTML={sentimentHTML}
+          abstractsHTML={abstractsHTML}
+        />
       )}
-      {sentimentHTML}
-      {abstractsHTML}
     </div>
   );
 }
