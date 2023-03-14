@@ -1,7 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import OpenAILogo from "./components/OpenAILogo";
 import LogIn from "./components/LogIn";
-import NYtimes from "./components/NYtimes";
 import { useState } from "react";
 import "./App.css";
 import RegisterForm from "./components/RegisterForm";

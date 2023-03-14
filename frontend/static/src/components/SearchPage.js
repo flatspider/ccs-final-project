@@ -2,6 +2,7 @@ import NYtimes from "./NYtimes";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import ArticleResults from "./ArticleResults";
+import ResultsPage from "./ResultsPage";
 
 function SearchPage() {
   const [search, setSearch] = useState("");
@@ -12,6 +13,7 @@ function SearchPage() {
   });
   const [fireOnce, setFireOnce] = useState(true);
   const [sentiment, setSentiment] = useState("");
+  const [searchResults, setSearchResults] = useState(false);
 
   const handleError = (err) => {
     console.warn(err, "error!");
@@ -58,6 +60,7 @@ function SearchPage() {
 
   const handleSearch = async (event) => {
     event.preventDefault();
+    setSearchResults(true);
 
     // The search useState variable is being set by the input box on the website.
     const searchInput = {
@@ -116,24 +119,29 @@ function SearchPage() {
 
   return (
     <div className="flex">
-      <h1>WHAT DOES </h1>
-      <NYtimes className="w-75" />
-      <h1 className="mt-3">
-        THINK ABOUT{" "}
-        <input
-          type="search"
-          placeholder="Search..."
-          size="20"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          autoFocus
-        ></input>{" "}
-        ?
-      </h1>
-      <button className="btn btn-dark mt-5 me-2" onClick={handleSearch}>
-        FIND OUT
-      </button>
-      <button className="btn btn-dark mt-5">VIEW FEED</button>
+      {!searchResults && (
+        <>
+          <h1>WHAT DOES </h1>
+          <NYtimes className="w-75" />
+          <h1 className="mt-3">
+            THINK ABOUT{" "}
+            <input
+              type="search"
+              placeholder="Search..."
+              size="20"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              autoFocus
+            ></input>{" "}
+            ?
+          </h1>
+          <button className="btn btn-dark mt-5 me-2" onClick={handleSearch}>
+            FIND OUT
+          </button>
+          <button className="btn btn-dark mt-5">VIEW FEED</button>
+        </>
+      )}
+      {searchResults && <ResultsPage />}
       {sentimentHTML}
       {abstractsHTML}
     </div>

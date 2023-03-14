@@ -1,10 +1,7 @@
 import { slide as Menu } from "react-burger-menu";
 
-function BurgerMenu(props) {
+function BurgerMenu() {
   // Implemented using react-burger-menu
-  const showSettings = (event) => {
-    event.preventDefault();
-  };
 
   return (
     <>
@@ -18,8 +15,8 @@ function BurgerMenu(props) {
         <a id="search" className="menu-item" href="/">
           Search
         </a>
-        <a id="search" className="menu-item" href="letters/">
-          View Letters
+        <a id="search" className="menu-item" href="/letters/">
+          View Drafts
         </a>
         <a id="about" className="menu-item--small" href="/about/">
           About
