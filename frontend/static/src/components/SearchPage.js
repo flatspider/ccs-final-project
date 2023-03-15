@@ -105,6 +105,9 @@ function SearchPage() {
     sentimentHTML = <p>{sentiment}</p>;
   }
 
+  // Do the abstracts have a unique ID? The NYTdata has the first 10 results for the search.
+  // Pass all that data down to the letter component.
+
   if (!NYTdata) {
     abstractsHTML = <p>Loading...</p>;
   } else {
@@ -143,6 +146,7 @@ function SearchPage() {
       )}
       {searchResults && (
         <ResultsPage
+          NYTdata={NYTdata}
           sentiment={sentiment}
           openAIdata={openAIdata}
           sentimentHTML={sentimentHTML}

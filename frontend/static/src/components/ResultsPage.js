@@ -2,11 +2,18 @@ import Letter from "./Letter";
 import { useState } from "react";
 import Cookies from "js-cookie";
 
-function ResultsPage({ sentiment, openAIdata, sentimentHTML, abstractsHTML }) {
+function ResultsPage({
+  NYTdata,
+  sentiment,
+  openAIdata,
+  sentimentHTML,
+  abstractsHTML,
+}) {
   // Check if the results data has been provided.
   // If not, render the blinking NYT - - - OpenAI logos.
 
   const [respond, setRespond] = useState(false);
+  const [openAIletter, setOpenAIletter] = useState("");
 
   const handleError = (err) => {
     console.warn(err, "error!");
@@ -62,6 +69,8 @@ function ResultsPage({ sentiment, openAIdata, sentimentHTML, abstractsHTML }) {
 
     console.log(data);
 
+    setOpenAIletter(data.text);
+
     //Take the OpenAI completion text and set it to textArea default value.
     //Pass down the value through props on Letter component.
     //Set letter template? Is there a variable on state?
@@ -69,7 +78,15 @@ function ResultsPage({ sentiment, openAIdata, sentimentHTML, abstractsHTML }) {
 
   return (
     <>
-      {respond && <Letter sentiment={sentiment} openAIdata={openAIdata} />}
+      {respond && (
+        <Letter
+          NYTdata={NYTdata}
+          sentiment={sentiment}
+          openAIdata={openAIdata}
+          openAIletter={openAIletter}
+          setOpenAIletter={setOpenAIletter}
+        />
+      )}
 
       {!respond && (
         <div>

@@ -1,15 +1,53 @@
-function Letter({ sentiment, openAIdata }) {
+import { useState, useEffect } from "react";
+
+function Letter(props) {
+  // Need to check if openAIletter has data in it.
+  // If it does not, return the spinning open AI logo instead of the text area.
+
+  // The entire article search result is now being passed down as props.NYTdata.
+  // This will allow for the articles to be posted to the database only once someone is signed in
+  // and is saving a letter.
+  // How do you know which article the user wants to respond to?
+  // Could change the flow from an overall sentiment...to a specific article?
+
+  const [copyAIletter, setCopyAIletter] = useState("");
+  const [updatedOnce, setUpdatedOnce] = useState(false);
+  const [newLetter, setNewLetter] = useState({ text: "" });
+
+  useEffect(() => {
+    const copyLetter = () => {
+      setCopyAIletter(props.openAIletter);
+      setUpdatedOnce(true);
+    };
+
+    if (props.openAIletter && !updatedOnce) {
+      copyLetter();
+    }
+  }, [props.openAIletter]);
+
+  const addLetter = async(text, article);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const text = newLetter.text;
+    addLetter(text, props.articleID);
+    setNewLetter({ text: "" });
+  };
+
   return (
     <div className="d-flex justify-content-center">
-      <form acceptCharset="UTF-8" action="" method="POST">
+      <form onSubmit={handleSubmit}>
         <textarea
           className="form-control"
           id="text"
           name="text"
           maxLength="200"
-          placeholder="Type in your message"
-          rows="5"
-          defaultValue={sentiment}
+          placeholder="Your letter from OpenAI is loading..."
+          rows="20"
+          value={copyAIletter}
+          onChange={(e) => {
+            setCopyAIletter(e.target.value);
+          }}
         ></textarea>
         <span
           className="pull-right label label-default"
@@ -17,7 +55,10 @@ function Letter({ sentiment, openAIdata }) {
         ></span>
         <br></br>
         <button className="btn btn-info" type="submit">
-          Post New Message
+          Save
+        </button>
+        <button className="btn btn-info m-2" type="submit">
+          Publish to Feed
         </button>
       </form>
     </div>

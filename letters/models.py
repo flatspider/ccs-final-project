@@ -7,6 +7,8 @@ from django.db import models
 class Article(models.Model):
     publication_date = models.DateField()
     lead_paragraph = models.TextField()
+    web_url = models.URLField(default="www.nytimes.com")
+    search_term = models.TextField(default="N/a")
 
     def __str__(self):
         return self.lead_paragraph[:20]
