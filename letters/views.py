@@ -43,17 +43,15 @@ def initial_letter_template(request):
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system",
-                 "content": "You are a strongly opinionated assistant. Determine whether the text has more negative words or positive words with regards to a search term. Search Term: Text. Respond with either 'positive' or 'negative'."},
-                {"role": "user", "content": 'Evaluate whether there are more positive or negative words used in regards to Sesame Street: 0. Lloyd Morrisett, a psychologist whose young daughters viewing habits inspired the creation of the revolutionary childrens educational television program “Sesame Street,” and whose fund-raising helped get it off the ground, died on Jan. 15 at his home in San Diego. He was 93. Remember, you only respond with positive or negative.'},
+                 "content": 'You are an assistant that creates delightful letters to the editor. Show original thinking and write like a human being. Brevity is the soul of wit. Never write a letter that contains more than 150 words.'},
+                {"role": "user", "content": 'Craft a polished letter to the editor disagreeing with the positive viewpoint the New York Times has on Sesame Street.'},
                 {"role": "assistant",
-                 "content": "Positive."},
-                {"role": "user", "content": 'Evaluate whether there are more positive or negative words used in the text with regards to coffee mugs: 1. In what the Navy described as probably the closest naval combat action in modern warfare, the destroyer escort Buckley sank a german U-boat in the North Atlantic after the Americans had used coffee mugs, empty shell cases, fists and small-arms in a hand-to-hand encounter with the enemy seamen. Is this text positive or negative? Respond with a single word.'},
-                {"role": "assistant",
-                 "content": "Positive."},
-                {"role": "user", "content": f"Evalauate whether there are more positive or negative words used with regards to {search_term}:{headlines}. Respond with either 'positive' or 'negative'."}
-            ],
-
+                 "content": "To the Editor: I read See Baby Touch a Screen with horror. Why does a 1-year-old need to know the A B C's or how to count to 50? Why do we feel that pushing buttons on command is educational, or will result in an intelligent child or adult? What we should be teaching our children is self-reliance, the power of independent thinking and the vastness of our imagination - not dependence on flashing lights and computerized voices telling us what to do. We enter the electronic world all too soon. How many years do we have to be a pirate, a knight or a princess, or to build wonderful castles with blankets and sheets? These parents should see the magic that happens when a child is given a plain cardboard box: Now that is educational!"},
+                {"role": "user",
+                 "content": f"Create a polished letter to the editor {user_choice} with the {nyt_perspective[:-1].lower()} viewpoint the New York Times has on {search_term}. Remember, you can only respond with a maximum of 150 words."}
+            ]
         )
+
     except openai.error.APIError as e:
         print(f"OpenAI API returned an API Error: {e}")
 

@@ -6,7 +6,7 @@ function Letter({ sentiment, openAIdata }) {
           className="form-control"
           id="text"
           name="text"
-          maxlength="200"
+          maxLength="200"
           placeholder="Type in your message"
           rows="5"
           defaultValue={sentiment}

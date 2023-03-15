@@ -33,9 +33,12 @@ function ResultsPage({ sentiment, openAIdata, sentimentHTML, abstractsHTML }) {
     // Have the Django view get a technically sound letter.
 
     const letterDescription = {
-      search: openAIdata.search_term,
-      sentiment,
+      search_term: openAIdata.search_term,
+      nyt_perspective: sentiment,
+      user_choice: event.target.value,
     };
+
+    console.log(letterDescription);
 
     const options = {
       method: "POST",
@@ -46,12 +49,12 @@ function ResultsPage({ sentiment, openAIdata, sentimentHTML, abstractsHTML }) {
       body: JSON.stringify(letterDescription),
     };
 
-    const response = await fetch(`/api_v1/letter/generate`, options).catch(
+    const response = await fetch(`/api_v1/letters/generate/`, options).catch(
       handleError
     );
 
     if (!response.ok) {
-      alert(`Search for ${openAIdata.search_term} not completed.`);
+      alert(`Letter generation for ${openAIdata.search_term} not completed.`);
       throw new Error("Network response was not ok");
     }
 
@@ -61,6 +64,7 @@ function ResultsPage({ sentiment, openAIdata, sentimentHTML, abstractsHTML }) {
 
     //Take the OpenAI completion text and set it to textArea default value.
     //Pass down the value through props on Letter component.
+    //Set letter template? Is there a variable on state?
   };
 
   return (
