@@ -35,7 +35,7 @@ function ResultsPage({ sentiment, openAIdata, sentimentHTML, abstractsHTML }) {
     const letterDescription = {
       search_term: openAIdata.search_term,
       nyt_perspective: sentiment,
-      user_choice: event.target.value,
+      user_choice: event.target.innerText,
     };
 
     console.log(letterDescription);
