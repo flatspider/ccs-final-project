@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 
 function Letter(props) {
   // Need to check if openAIletter has data in it.
@@ -14,6 +15,10 @@ function Letter(props) {
   const [updatedOnce, setUpdatedOnce] = useState(false);
   const [newLetter, setNewLetter] = useState({ text: "" });
 
+  const handleError = (err) => {
+    console.warn("error!");
+  };
+
   useEffect(() => {
     const copyLetter = () => {
       setCopyAIletter(props.openAIletter);
@@ -25,11 +30,35 @@ function Letter(props) {
     }
   }, [props.openAIletter]);
 
-  const addLetter = async(text, article);
+  const addLetter = async (text, articleID) => {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+      body: JSON.stringify({
+        text,
+        article: articleID,
+      }),
+    };
+
+    const response = await fetch("/api_v1/letters/", options).catch(
+      handleError
+    );
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const letters = await response.json();
+    console.log("New letter added:", letters);
+    //To update live letters, add to state
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const text = newLetter.text;
+    const text = copyAIletter;
     addLetter(text, props.articleID);
     setNewLetter({ text: "" });
   };

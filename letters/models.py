@@ -11,7 +11,7 @@ class Article(models.Model):
     search_term = models.TextField(default="N/a")
 
     def __str__(self):
-        return self.lead_paragraph[:20]
+        return self.search_term
 
 
 class Letter(models.Model):
