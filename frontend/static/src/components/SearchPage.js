@@ -141,7 +141,9 @@ function SearchPage() {
           <button className="btn btn-dark mt-5 me-2" onClick={handleSearch}>
             FIND OUT
           </button>
-          <button className="btn btn-dark mt-5">VIEW FEED</button>
+          <a className="btn btn-dark mt-5" href="/feed/">
+            VIEW FEED
+          </a>
         </>
       )}
       {searchResults && (

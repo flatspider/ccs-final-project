@@ -9,11 +9,12 @@ function Letter(props) {
   // This will allow for the articles to be posted to the database only once someone is signed in
   // and is saving a letter.
   // How do you know which article the user wants to respond to?
-  // Could change the flow from an overall sentiment...to a specific article?
+  // Should the letter response be attached to the search term?
 
   const [copyAIletter, setCopyAIletter] = useState("");
   const [updatedOnce, setUpdatedOnce] = useState(false);
   const [newLetter, setNewLetter] = useState({ text: "" });
+  const [publishToFeed, setPublishToFeed] = useState(false);
 
   const handleError = (err) => {
     console.warn("error!");
@@ -25,6 +26,7 @@ function Letter(props) {
       setUpdatedOnce(true);
     };
 
+    // The copyLetter function will only be called if openAIletter exists, and updatedOnce is false
     if (props.openAIletter && !updatedOnce) {
       copyLetter();
     }
@@ -40,6 +42,7 @@ function Letter(props) {
       body: JSON.stringify({
         text,
         article: articleID,
+        published: publishToFeed,
       }),
     };
 
@@ -70,7 +73,6 @@ function Letter(props) {
           className="form-control"
           id="text"
           name="text"
-          maxLength="200"
           placeholder="Your letter from OpenAI is loading..."
           rows="20"
           value={copyAIletter}
@@ -86,7 +88,13 @@ function Letter(props) {
         <button className="btn btn-info" type="submit">
           Save
         </button>
-        <button className="btn btn-info m-2" type="submit">
+        <button
+          onClick={() => {
+            setPublishToFeed(true);
+          }}
+          className="btn btn-info m-2"
+          type="button"
+        >
           Publish to Feed
         </button>
       </form>

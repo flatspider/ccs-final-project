@@ -6,6 +6,8 @@ import RegisterForm from "./components/RegisterForm";
 import SearchPage from "./components/SearchPage";
 import BurgerMenu from "./components/BurgerMenu";
 import About from "./components/About";
+import LetterFeed from "./components/LetterFeed";
+import DraftLetters from "./components/DraftLetters";
 
 function App() {
   const [webflow, setWebflow] = useState("d");
@@ -22,6 +24,8 @@ function App() {
         <Route path="register/" element={<RegisterForm />} />
         <Route path="login/" element={<LogIn />} />
         <Route path="about/" element={<About />} />
+        <Route path="feed/" element={<LetterFeed />} />
+        <Route path="letters/" element={<DraftLetters />} />
       </Routes>
     </div>
   );
