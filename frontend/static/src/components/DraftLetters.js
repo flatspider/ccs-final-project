@@ -16,6 +16,8 @@ function DraftLetters() {
 
   const [draftletters, setDraftletters] = useState("");
 
+  const [displayLetter, setDisplayLetter] = useState(0);
+
   const handleError = (err) => {
     console.warn("error!");
   };
@@ -52,10 +54,16 @@ function DraftLetters() {
     console.log("loading");
   } else {
     // Map the letters. Search term goes to the group item heading object.
-    //
     // Maps the database of channels to create channel buttons
     draftLetterListHTML = draftletters.map((letter, index) => (
-      <a href="#" className="list-group-item">
+      <a
+        href="#"
+        onClick={() => {
+          console.log(index);
+          setDisplayLetter(index);
+        }}
+        className="list-group-item"
+      >
         <h4 className="list-group-item-heading">{letter.search_term}</h4>
         <p className="list-group-item-text">{letter.text.slice(0, 30)}</p>
         <span className="label label-success pull-right">
@@ -78,7 +86,7 @@ function DraftLetters() {
             <div className="panel">
               <div className="panel-heading">
                 <div className="pull-left">
-                  <h3 className="panel-title">Letter Drafts</h3>
+                  <h3 className="panel-title">Draft Letters</h3>
                 </div>
                 <div className="pull-right">
                   <div className="btn-group">
@@ -118,19 +126,6 @@ function DraftLetters() {
                   {draftLetterListHTML}
                   <a href="#" className="list-group-item">
                     <h4 className="list-group-item-heading">
-                      Regarding Space shuttles
-                    </h4>
-                    <p className="list-group-item-text">
-                      Ticket #78: <strong>Problems with custom CSS3</strong>
-                    </p>
-                    <span className="label label-success pull-right">
-                      SOLVED
-                    </span>
-                    <div className="clearfix"></div>
-                  </a>
-
-                  <a href="#" className="list-group-item">
-                    <h4 className="list-group-item-heading">
                       Artificial Intelligence
                     </h4>
                     <p className="list-group-item-text">
@@ -167,11 +162,11 @@ function DraftLetters() {
               </div>
               <div className="panel-body">
                 <p className="lead">
-                  RE : Cras sit amet nibh libero, in gravida nulla. Nulla vel
-                  metus scelerisque ante sollicitudin commodo. Cras purus odio,
-                  vestibulum in vulputate at, tempus viverra turpis. Fusce
-                  condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-                  congue felis in faucibus.
+                  {draftletters[displayLetter].text}
+                  RE : onClick, render the corresponding ID text. Set it equal
+                  to letter.text tempus viverra turpis. Fusce condimentum nunc
+                  ac nisi vulputate fringilla. Donec lacinia congue felis in
+                  faucibus.
                 </p>
                 <hr></hr>
                 <p>
