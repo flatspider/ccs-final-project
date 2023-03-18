@@ -152,7 +152,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
     background: #373a47;
     padding: 2.5em 1.5em 0;
     font-size: 1.15em;
-    width: 50%;
   }
 }
 
@@ -259,7 +258,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .list-message .list-group-item {
   padding: 15px;
   color: #999999 !important;
-  border-right: 3px solid #8cc152 !important;
 }
 .list-message .list-group-item.active {
   background-color: #eeeeee;
@@ -287,8 +285,4 @@ Note: Beware of modifying this element as it can break the animations - you shou
   -webkit-border-radius: 0px;
   border-radius: 0px;
   border-bottom: 1px solid #ddd !important;
-}
-.avatar {
-  width: 50px;
-  height: 50px;
 }

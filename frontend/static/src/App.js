@@ -23,6 +23,7 @@ function App() {
         <Route path="about/" element={<About />} />
         <Route path="feed/" element={<LetterFeed />} />
         <Route path="letters/" element={<DraftLetters />} />
+        <Route path="logout/" element={<SearchPage />} />
       </Routes>
     </div>
   );

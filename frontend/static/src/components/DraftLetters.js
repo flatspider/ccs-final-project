@@ -11,12 +11,15 @@ function DraftLetters() {
   // On the right, listen for a click on the categories. Map all of the letters to the letter component.
   // What needs to be there? Allow for editing of the text, save, update?, and publish to feed.
 
-  // There will be a list of letters, subjects on the left.
-  // When you click each one, re-render the right component to show the letter text that corresponds with the array location.
+  // Add edit, save, publish buttons.
 
   const [draftletters, setDraftletters] = useState("");
 
   const [displayLetter, setDisplayLetter] = useState(0);
+
+  const [save, setSave] = useState(false);
+
+  const [updateText, setUpdateText] = useState("");
 
   const handleError = (err) => {
     console.warn("error!");
@@ -74,6 +77,29 @@ function DraftLetters() {
     ));
   }
 
+  let displayedLetterText = "hello";
+  let author = "User";
+
+  if (draftletters) {
+    displayedLetterText = draftletters[displayLetter].text;
+    author = draftletters[0].author_name;
+  }
+
+  const editLetter = () => {
+    //alter state to place current text of letter into a text area
+    setSave(true);
+    setUpdateText(displayedLetterText);
+  };
+
+  const saveLetter = () => {
+    //send fetch request to update letter to save modifications to letter and update letter index database
+    setSave(false);
+  };
+
+  const publishLetter = () => {
+    // Update the state of the letter from publish false to publish true
+  };
+
   return (
     <>
       <link
@@ -85,65 +111,13 @@ function DraftLetters() {
           <div className="col-md-4 message-sideleft">
             <div className="panel">
               <div className="panel-heading">
-                <div className="pull-left">
-                  <h3 className="panel-title">Draft Letters</h3>
-                </div>
-                <div className="pull-right">
-                  <div className="btn-group">
-                    <Dropdown>
-                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        Filter
-                      </Dropdown.Toggle>
+                <h3 className="panel-title">Draft Letters</h3>
 
-                      <Dropdown.Menu>
-                        <Dropdown.Item
-                          onClick={(e) => {
-                            console.log(e.target.innerText);
-                          }}
-                          href="#/action-1"
-                        >
-                          Drafts
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          onClick={(e) => {
-                            console.log(e.target.innerText);
-                          }}
-                          href="#/action-2"
-                        >
-                          Published
-                        </Dropdown.Item>
-                        <Dropdown.Item href="/letters">
-                          All Letters
-                        </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </div>
-                </div>
                 <div className="clearfix"></div>
               </div>
               <div className="panel-body no-padding">
                 <div className="list-group no-margin list-message">
                   {draftLetterListHTML}
-                  <a href="#" className="list-group-item">
-                    <h4 className="list-group-item-heading">
-                      Artificial Intelligence
-                    </h4>
-                    <p className="list-group-item-text">
-                      <strong>Why is my computer thinking? </strong>
-                    </p>
-                    <span className="label label-default pull-right circle">
-                      OPEN
-                    </span>
-                    <div className="clearfix"></div>
-                  </a>
-                  <a href="#" className="list-group-item">
-                    <h4 className="list-group-item-heading">
-                      Subject Matter <small>Needs a timestamp: 3:45</small>
-                    </h4>
-                    <p className="list-group-item-text">
-                      Test letter. Will be filled with content.
-                    </p>
-                  </a>
                 </div>
               </div>
             </div>
@@ -153,38 +127,43 @@ function DraftLetters() {
               <div className="panel-heading">
                 <div className="media">
                   <div className="media-body">
-                    <h4 className="media-heading">
-                      To the editor <small>(Sales Manager)</small>
-                    </h4>
+                    <h4 className="media-heading"></h4>
                     <small>Friday 17th March 2023</small>
                   </div>
                 </div>
               </div>
               <div className="panel-body">
-                <p className="lead">
-                  {draftletters[displayLetter].text}
-                  RE : onClick, render the corresponding ID text. Set it equal
-                  to letter.text tempus viverra turpis. Fusce condimentum nunc
-                  ac nisi vulputate fringilla. Donec lacinia congue felis in
-                  faucibus.
-                </p>
-                <hr></hr>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                </p>
+                {!save ? (
+                  <p className="lead ">{displayedLetterText}</p>
+                ) : (
+                  <textarea
+                    style={{ width: "100%", height: 300 }}
+                    value={updateText}
+                    onChange={(e) => {
+                      setUpdateText(e.target.value);
+                    }}
+                  ></textarea>
+                )}
+
                 <br></br>
                 <p>
                   Sincerely, <br></br>
-                  Current username.
+                  {author}
                 </p>
               </div>
+            </div>
+            <div className="d-flex justify-content-end align-items-end">
+              {save ? (
+                <button onClick={saveLetter} className="btn btn-secondary m-1">
+                  Save
+                </button>
+              ) : (
+                <button onClick={editLetter} className="btn btn-secondary m-1">
+                  Edit
+                </button>
+              )}
+
+              <button className="btn btn-primary m-1">Publish</button>
             </div>
           </div>
         </div>
