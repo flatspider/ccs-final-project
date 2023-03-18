@@ -1,6 +1,5 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import LogIn from "./components/LogIn";
-import { useState } from "react";
 import "./App.css";
 import RegisterForm from "./components/RegisterForm";
 import SearchPage from "./components/SearchPage";
@@ -10,8 +9,6 @@ import LetterFeed from "./components/LetterFeed";
 import DraftLetters from "./components/DraftLetters";
 
 function App() {
-  const [webflow, setWebflow] = useState("d");
-
   return (
     <div className="App">
       <BurgerMenu />

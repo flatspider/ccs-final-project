@@ -1,8 +1,70 @@
 import Dropdown from "react-bootstrap/Dropdown";
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 
 function DraftLetters() {
   // Call fetch request to have only currently logged in users letters returned.
   // If superuser, then return all letters? All published letters?
+  // Build a new view
+
+  // Build the subject matter on the left. Each letter should have a search_term model component.
+  // On the right, listen for a click on the categories. Map all of the letters to the letter component.
+  // What needs to be there? Allow for editing of the text, save, update?, and publish to feed.
+
+  // There will be a list of letters, subjects on the left.
+  // When you click each one, re-render the right component to show the letter text that corresponds with the array location.
+
+  const [draftletters, setDraftletters] = useState("");
+
+  const handleError = (err) => {
+    console.warn("error!");
+  };
+
+  // This acquires all letters written by the currently logged in user.
+  useEffect(() => {
+    const getDraftLetters = async () => {
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": Cookies.get("csrftoken"),
+        },
+      };
+
+      const response = await fetch("/api_v1/letters/drafts/", options).catch(
+        handleError
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const draftLetters = await response.json();
+      setDraftletters(draftLetters);
+      console.log("Current draft letters:", draftLetters);
+    };
+    getDraftLetters();
+  }, []);
+
+  let draftLetterListHTML = <p>Loading letters...</p>;
+
+  if (!draftletters) {
+    console.log("loading");
+  } else {
+    // Map the letters. Search term goes to the group item heading object.
+    //
+    // Maps the database of channels to create channel buttons
+    draftLetterListHTML = draftletters.map((letter, index) => (
+      <a href="#" className="list-group-item">
+        <h4 className="list-group-item-heading">{letter.search_term}</h4>
+        <p className="list-group-item-text">{letter.text.slice(0, 30)}</p>
+        <span className="label label-success pull-right">
+          {letter.published}
+        </span>
+        <div className="clearfix"></div>
+      </a>
+    ));
+  }
 
   return (
     <>
@@ -53,6 +115,7 @@ function DraftLetters() {
               </div>
               <div className="panel-body no-padding">
                 <div className="list-group no-margin list-message">
+                  {draftLetterListHTML}
                   <a href="#" className="list-group-item">
                     <h4 className="list-group-item-heading">
                       Regarding Space shuttles

@@ -56,7 +56,6 @@ function Letter(props) {
 
     const letters = await response.json();
     console.log("New letter added:", letters);
-    //To update live letters, add to state
   };
 
   const handleSubmit = (event) => {
@@ -64,6 +63,7 @@ function Letter(props) {
     const text = copyAIletter;
     addLetter(text, props.articleID);
     setNewLetter({ text: "" });
+    window.location.href = "/letters/";
   };
 
   return (
@@ -75,6 +75,7 @@ function Letter(props) {
           name="text"
           placeholder="Your letter from OpenAI is loading..."
           rows="20"
+          cols="60"
           value={copyAIletter}
           onChange={(e) => {
             setCopyAIletter(e.target.value);

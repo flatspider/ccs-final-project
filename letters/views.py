@@ -12,6 +12,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 import os
 
+
 # from django.contrib.auth.models import User
 
 from rest_framework.permissions import IsAuthenticated
@@ -20,17 +21,32 @@ from rest_framework.permissions import IsAuthenticated
 
 OPEN_AI_API_KEY = os.environ['SECRET_OPEN_AI_API_KEY']
 
+# Need to create multiple views.
+# One view to see only letters written by yourself. DraftLettersView
+# One view to see all of the letters where published is set to true. This should be aligned with the letters/feed/
+# One view for the superuser
+
 
 class LetterListAPIView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Letter.objects.all()
+    # queryset = Letter.objects.all()
     serializer_class = LetterSerializer
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
 
+class DraftLetterListAPIView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = LetterSerializer
+
+    def get_queryset(self):
+        # Retrieve only letters written by the requesting user
+        return Letter.objects.filter(author=self.request.user)
+
 # This function is passed the search term, the NYT opinion, and the users sentiment towards that opinion.
+
+
 @api_view(['POST'])
 def initial_letter_template(request):
     openai.api_key = OPEN_AI_API_KEY
