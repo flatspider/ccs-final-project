@@ -22,6 +22,17 @@ function SearchPage() {
   console.log(openAIdata.search_term);
   console.log(openAIdata.abstract);
 
+  var placeholders = [
+    "Search...",
+    "Greenville, SC...",
+    "rubber ducks...",
+    "space shuttle...",
+    "programming...",
+    "bootcamps...",
+  ];
+
+  let cycle = 0;
+
   useEffect(() => {
     const fetchSentiment = async () => {
       const options2 = {
@@ -129,8 +140,9 @@ function SearchPage() {
           <h1 className="mt-3">
             THINK ABOUT{" "}
             <input
+              className="input"
               type="search"
-              placeholder="Search..."
+              placeholder={placeholders[cycle]}
               size="20"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
