@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
 
-//To do: Send fetch request to log in at end point
+// TO DO: Have log in trigger re-render of hamburger menu options.
+// Possibly automatically route you to drafts?
 
 function LogIn() {
   const [username, setUsername] = useState("");

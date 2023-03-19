@@ -88,9 +88,11 @@ function BurgerMenu() {
         <a id="search" className="menu-item" href="/">
           Search
         </a>
-        <a id="search" className="menu-item" href="/letters/">
-          View Drafts
-        </a>
+        {loggedIn && (
+          <a id="search" className="menu-item" href="/letters/">
+            View Drafts
+          </a>
+        )}
         <a id="about" className="menu-item--small" href="/about/">
           About
         </a>

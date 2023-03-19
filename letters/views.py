@@ -29,7 +29,7 @@ OPEN_AI_API_KEY = os.environ['SECRET_OPEN_AI_API_KEY']
 
 class LetterListAPIView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
-    # queryset = Letter.objects.all()
+    queryset = Letter.objects.all()
     serializer_class = LetterSerializer
 
     def perform_create(self, serializer):
@@ -37,6 +37,15 @@ class LetterListAPIView(generics.ListCreateAPIView):
 
 
 class DraftLetterListAPIView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = LetterSerializer
+
+    def get_queryset(self):
+        # Retrieve only letters written by the requesting user
+        return Letter.objects.filter(author=self.request.user)
+
+
+class DraftLetterDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = LetterSerializer
 

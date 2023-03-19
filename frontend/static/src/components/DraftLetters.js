@@ -1,11 +1,9 @@
-import Dropdown from "react-bootstrap/Dropdown";
+//import Dropdown from "react-bootstrap/Dropdown";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
 function DraftLetters() {
   // Call fetch request to have only currently logged in users letters returned.
-  // If superuser, then return all letters? All published letters?
-  // Build a new view
 
   // Build the subject matter on the left. Each letter should have a search_term model component.
   // On the right, listen for a click on the categories. Map all of the letters to the letter component.
@@ -14,11 +12,8 @@ function DraftLetters() {
   // Add edit, save, publish buttons.
 
   const [draftletters, setDraftletters] = useState("");
-
   const [displayLetter, setDisplayLetter] = useState(0);
-
   const [save, setSave] = useState(false);
-
   const [updateText, setUpdateText] = useState("");
 
   const handleError = (err) => {
@@ -70,14 +65,14 @@ function DraftLetters() {
         <h4 className="list-group-item-heading">{letter.search_term}</h4>
         <p className="list-group-item-text">{letter.text.slice(0, 30)}</p>
         <span className="label label-success pull-right">
-          {letter.published}
+          {letter.published ? "Published" : "Not Published"}
         </span>
         <div className="clearfix"></div>
       </a>
     ));
   }
 
-  let displayedLetterText = "hello";
+  let displayedLetterText = "Loading....";
   let author = "User";
 
   if (draftletters) {
@@ -89,6 +84,9 @@ function DraftLetters() {
     //alter state to place current text of letter into a text area
     setSave(true);
     setUpdateText(displayedLetterText);
+    console.log(draftletters[0].published);
+    // How do I know the id of the letter that I am currently viewing?
+    console.log(draftletters[displayLetter].id);
   };
 
   const saveLetter = () => {
