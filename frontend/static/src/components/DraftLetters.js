@@ -57,7 +57,6 @@ function DraftLetters() {
       <a
         href="#"
         onClick={() => {
-          console.log(index);
           setDisplayLetter(index);
         }}
         className="list-group-item"
@@ -81,18 +80,14 @@ function DraftLetters() {
   }
 
   const editLetter = () => {
-    //alter state to place current text of letter into a text area
+    //alter state to place current text of letter into an editable text area
     setSave(true);
     setUpdateText(displayedLetterText);
-    console.log(draftletters[0].published);
-    // How do I know the id of the letter that I am currently viewing?
   };
 
   const saveLetter = () => {
     //send fetch request to update letter to save modifications to letter and update letter index database
     setSave(false);
-
-    console.log(draftletters[displayLetter].id);
 
     // Create a fetch request to /api_v1/letters/drafts/{id number}/
     // We will use a PUT request to update text.
@@ -119,12 +114,37 @@ function DraftLetters() {
       }
     };
     saveEditThisChat();
-    // Update the current state of the value text.
+    // Update the current state of the value text in the browser.
     draftletters[displayLetter].text = updateText;
   };
 
   const publishLetter = () => {
     // Update the state of the letter from publish false to publish true
+    console.log(draftletters[displayLetter].id);
+
+    const publishThisLetter = async () => {
+      const options = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": Cookies.get("csrftoken"),
+        },
+        body: JSON.stringify({
+          text: draftletters[displayLetter].text,
+          published: true,
+        }),
+      };
+
+      const editURL =
+        "/api_v1/letters/drafts/" + draftletters[displayLetter].id + "/";
+
+      const response = await fetch(editURL, options).catch(handleError);
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+    };
+    publishThisLetter();
   };
 
   return (
@@ -190,7 +210,9 @@ function DraftLetters() {
                 </button>
               )}
 
-              <button className="btn btn-primary m-1">Publish</button>
+              <button onClick={publishLetter} className="btn btn-primary m-1">
+                Publish
+              </button>
             </div>
           </div>
         </div>
