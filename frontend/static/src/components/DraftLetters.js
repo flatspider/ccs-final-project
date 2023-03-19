@@ -86,12 +86,41 @@ function DraftLetters() {
     setUpdateText(displayedLetterText);
     console.log(draftletters[0].published);
     // How do I know the id of the letter that I am currently viewing?
-    console.log(draftletters[displayLetter].id);
   };
 
   const saveLetter = () => {
     //send fetch request to update letter to save modifications to letter and update letter index database
     setSave(false);
+
+    console.log(draftletters[displayLetter].id);
+
+    // Create a fetch request to /api_v1/letters/drafts/{id number}/
+    // We will use a PUT request to update text.
+
+    const saveEditThisChat = async () => {
+      const options = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": Cookies.get("csrftoken"),
+        },
+        body: JSON.stringify({
+          text: updateText,
+        }),
+      };
+
+      const editURL =
+        "/api_v1/letters/drafts/" + draftletters[displayLetter].id + "/";
+
+      const response = await fetch(editURL, options).catch(handleError);
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+    };
+    saveEditThisChat();
+    // Update the current state of the value text.
+    draftletters[displayLetter].text = updateText;
   };
 
   const publishLetter = () => {
