@@ -10,9 +10,6 @@ function BurgerMenu() {
 
   // Implemented using react-burger-menu
 
-  // How do I check if currently logged in?
-  // Query the endpoint /dj-rest-auth/user for the current user object
-
   const handleError = (err) => {
     console.warn(err, "error!");
   };
@@ -120,6 +117,16 @@ function BurgerMenu() {
             className="menu-item"
           >
             View Drafts
+          </Link>
+        )}
+        {loggedIn && (
+          <Link
+            onClick={handleOnClose}
+            to="/profile/"
+            id="drafts"
+            className="menu-item"
+          >
+            Profile
           </Link>
         )}
         <Link

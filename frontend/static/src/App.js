@@ -7,6 +7,7 @@ import BurgerMenu from "./components/BurgerMenu";
 import About from "./components/About";
 import LetterFeed from "./components/LetterFeed";
 import DraftLetters from "./components/DraftLetters";
+import ProfileViewer from "./components/ProfileViewer";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="feed/" element={<LetterFeed />} />
         <Route path="letters/" element={<DraftLetters />} />
         <Route path="logout/" element={<SearchPage />} />
+        <Route path="profile/" element={<ProfileViewer />} />
       </Routes>
     </div>
   );
