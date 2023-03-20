@@ -1,10 +1,12 @@
 import { slide as Menu } from "react-burger-menu";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 
 function BurgerMenu() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Implemented using react-burger-menu
 
@@ -59,43 +61,75 @@ function BurgerMenu() {
 
     Cookies.remove("Authorization");
     setLoggedIn(false);
+    setMenuOpen(false);
+  };
+
+  const handleOnClose = () => {
+    setMenuOpen(false);
   };
 
   return (
     <>
-      <Menu right>
+      <Menu
+        right
+        isOpen={menuOpen}
+        onClose={handleOnClose}
+        onOpen={() => {
+          setMenuOpen(true);
+        }}
+      >
         {loggedIn && (
           <>
             <div>You are currently logged in as {userData.username}</div>{" "}
-            <a
+            <Link
               onClick={setLogOut}
               id="log-out"
               className="menu-item"
-              href="/logout/"
+              to="/logout/"
             >
               Log Out
-            </a>
+            </Link>
           </>
         )}
         {!loggedIn && (
-          <a id="login" className="menu-item" href="/login/">
+          <Link
+            onClick={handleOnClose}
+            id="login"
+            className="menu-item"
+            to="/login/"
+          >
             Login/Register
-          </a>
+          </Link>
         )}
-        <a id="feed" className="menu-item" href="/feed/">
+        <Link
+          onClick={handleOnClose}
+          id="feed"
+          className="menu-item"
+          to="/feed/"
+        >
           View Feed
-        </a>
-        <a id="search" className="menu-item" href="/">
+        </Link>
+        <Link onClick={handleOnClose} to="/">
           Search
-        </a>
+        </Link>
         {loggedIn && (
-          <a id="search" className="menu-item" href="/letters/">
+          <Link
+            onClick={handleOnClose}
+            to="/letters/"
+            id="drafts"
+            className="menu-item"
+          >
             View Drafts
-          </a>
+          </Link>
         )}
-        <a id="about" className="menu-item--small" href="/about/">
+        <Link
+          onClick={handleOnClose}
+          to="/about/"
+          id="about"
+          className="menu-item--small"
+        >
           About
-        </a>
+        </Link>
       </Menu>
     </>
   );

@@ -48,22 +48,24 @@ function LetterFeed() {
     // Map the letters. Search term goes to the group item heading object.
     // Maps the database of channels to create channel buttons
     feedLetterListHTML = feedLetters.map((letter, index) => (
-      <>
-        <div class="card w-75">
-          <h5 class="card-header">
-            {letter.search_term}:
-            {letter.published ? "Published" : "Not Published"}
-          </h5>
-          <div class="card-body">
-            <h5 class="card-title">{letter.text.slice(0, 30)}t</h5>
-            <p class="card-text">{letter.text}</p>
-            <p class="card-text">{letter.author_name}</p>
-            <a href="#" class="btn btn-primary">
-              Upvote/downvote
-            </a>
-          </div>
+      <div class="card w-75 m-2">
+        <h5 class="card-header">
+          {letter.search_term}:
+          {letter.published ? "Published" : "Not Published"}
+        </h5>
+        <div class="card-body">
+          <h5 class="card-title">{letter.text.slice(0, 30)}t</h5>
+          <p class="card-text">{letter.text}</p>
+          <p class="card-text">{letter.author_name}</p>
+          <a href="#" class="btn btn-primary m-2">
+            ⬆️
+          </a>
+          {letter.votes}
+          <a href="#" class="btn btn-sm btn-danger">
+            ⬇️
+          </a>
         </div>
-      </>
+      </div>
     ));
   }
 

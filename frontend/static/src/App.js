@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import LogIn from "./components/LogIn";
 import "./App.css";
 import RegisterForm from "./components/RegisterForm";
@@ -12,14 +12,13 @@ function App() {
   return (
     <div className="App">
       <BurgerMenu />
-      <button
-        onClick={() => {
-          window.location.href = "/";
-        }}
+      <Link
+        to="/"
         className="nav-bar"
+        style={{ color: "black", textDecoration: "none" }}
       >
         e&nbsp;d&nbsp;i&nbsp;t&nbsp;o&nbsp;r&nbsp;i
-      </button>
+      </Link>
       <div className="nav-gap"></div>
       <Routes>
         <Route path="/" element={<SearchPage />} />
