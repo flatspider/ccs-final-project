@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 // TO DO: Have log in trigger re-render of hamburger menu options.
 // Possibly automatically route you to drafts?
@@ -7,6 +8,7 @@ import Cookies from "js-cookie";
 function LogIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   // No account, then offer the registration button.
   const handleError = (err) => {
@@ -43,7 +45,7 @@ function LogIn() {
     // Set the cookie Authorization the data token:
     Cookies.set("Authorization", `Token ${data}`);
 
-    //props.setRender("d");
+    window.location.href = "/";
 
     setUsername("");
     setPassword("");

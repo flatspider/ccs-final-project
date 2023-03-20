@@ -49,18 +49,26 @@ function LetterFeed() {
     // Maps the database of channels to create channel buttons
     feedLetterListHTML = feedLetters.map((letter, index) => (
       <>
-        <h4 className="list-group-item-heading">{letter.search_term}</h4>
-        <p className="list-group-item-text">{letter.text.slice(0, 30)}</p>
-        <span className="label label-success pull-right">
-          {letter.published ? "Published" : "Not Published"}
-        </span>
-        <div className="clearfix"></div>
+        <div class="card w-75">
+          <h5 class="card-header">
+            {letter.search_term}:
+            {letter.published ? "Published" : "Not Published"}
+          </h5>
+          <div class="card-body">
+            <h5 class="card-title">{letter.text.slice(0, 30)}t</h5>
+            <p class="card-text">{letter.text}</p>
+            <p class="card-text">{letter.author_name}</p>
+            <a href="#" class="btn btn-primary">
+              Upvote/downvote
+            </a>
+          </div>
+        </div>
       </>
     ));
   }
 
   return (
-    <div>
+    <div class="row d-flex justify-content-center">
       This is a feed of letters. Maybe cards, with an upvote, downvote set up.{" "}
       Make a fetch request to the letter database, then display all of the
       letters with vote buttons on the right.
