@@ -12,7 +12,12 @@ function App() {
   return (
     <div className="App">
       <BurgerMenu />
-      <button className="nav-bar">
+      <button
+        onClick={() => {
+          window.location.href = "/";
+        }}
+        className="nav-bar"
+      >
         e&nbsp;d&nbsp;i&nbsp;t&nbsp;o&nbsp;r&nbsp;i
       </button>
       <div className="nav-gap"></div>

@@ -53,9 +53,16 @@ class DraftLetterDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         # Retrieve only letters written by the requesting user
         return Letter.objects.filter(author=self.request.user)
 
+
+class LetterFeedAPIView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = LetterSerializer
+
+    def get_queryset(self):
+        return Letter.objects.filter(published=True)
+
+
 # This function is passed the search term, the NYT opinion, and the users sentiment towards that opinion.
-
-
 @api_view(['POST'])
 def initial_letter_template(request):
     openai.api_key = OPEN_AI_API_KEY
