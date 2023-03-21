@@ -14,7 +14,6 @@ User = get_user_model()
 
 
 class ProfileCreateAPIView(generics.ListCreateAPIView):
-    queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
     # This logic below tells Django back end to save the profile to the current user
@@ -22,3 +21,19 @@ class ProfileCreateAPIView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         # serializer.save(user=get_object_or_404(User, id=1))
         serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        # Retrieve only letters written by the requesting user
+        return Profile.objects.filter(user=self.request.user)
+
+
+class ProfileDetailAPIView(generics.RetrieveUpdateAPIView):
+    serializer_class = ProfileSerializer
+
+    def perform_create(self, serializer):
+        # serializer.save(user=get_object_or_404(User, id=1))
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        # Retrieve only letters written by the requesting user
+        return Profile.objects.filter(user=self.request.user)

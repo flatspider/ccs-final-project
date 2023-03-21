@@ -1,6 +1,7 @@
 import Letter from "./Letter";
 import { useState } from "react";
 import Cookies from "js-cookie";
+import nytAPI from "./nytAPI.png";
 
 function ResultsPage({
   NYTdata,
@@ -23,9 +24,15 @@ function ResultsPage({
 
   if (!sentiment) {
   } else {
+    let str_sentiment = sentiment
+      .toString()
+      .toLowerCase()
+      .slice(0, 8)
+      .replace(".", "");
     responseHTML = (
       <p>
-        The New York Times has a {sentiment} view of {openAIdata.search_term}.
+        The New York Times has a {str_sentiment} view of{" "}
+        {openAIdata.search_term}.
       </p>
     );
   }
@@ -76,6 +83,13 @@ function ResultsPage({
     //Set letter template? Is there a variable on state?
   };
 
+  // Map the nytdata. Have the abstract text placed into the card.
+  // Create a link with the web_url.
+
+  if (NYTdata) {
+    console.log(NYTdata["response"]["docs"]);
+  }
+
   return (
     <>
       {respond && (
@@ -90,10 +104,7 @@ function ResultsPage({
 
       {!respond && (
         <div>
-          <p>
-            Provide a list of the abstracts and urls. Provide the data api logo.
-            {responseHTML}
-          </p>
+          {responseHTML}
           <div className="col">
             <button onClick={handleAgree} className="btn btn-secondary">
               AGREE
@@ -102,8 +113,20 @@ function ResultsPage({
               DISAGREE
             </button>
           </div>
-          {sentimentHTML}
-          {abstractsHTML}
+          <div className="container mt-5 mb-3">
+            {abstractsHTML}
+            <div className="card m-3" style={{ width: "100%" }}>
+              <div className="card-body">
+                <a href="https://developer.nytimes.com" target="_blank">
+                  <img src={nytAPI}></img>
+                </a>
+                <p className="card-text">
+                  The New York Times does not endorse, or have any affiliation
+                  with this project.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </>

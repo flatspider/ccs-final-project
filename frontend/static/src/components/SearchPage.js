@@ -126,8 +126,6 @@ function SearchPage() {
 
   // Within javascript, create a concatenation of all of the abstract results.
 
-  // This update is not being passed outside of the function.
-
   return (
     <div className="flex">
       {!searchResults && (

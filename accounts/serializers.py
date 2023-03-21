@@ -8,12 +8,16 @@ from dj_rest_auth.serializers import TokenSerializer
 
 from .models import Profile
 
+User = get_user_model()
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     user_email = serializers.ReadOnlyField(source="user.email")
     user_name = serializers.ReadOnlyField(source="user.username")
-    first_name = serializers.ReadOnlyField(source="user.first_name")
-    last_name = serializers.ReadOnlyField(source="user.last_name")
+    first_name = serializers.CharField(
+        source="user.first_name")
+    # first_name = serializers.ReadOnlyField(source="user.first_name")
+    last_name = serializers.CharField(source="user.last_name")
 
     class Meta:
         model = Profile
