@@ -61,7 +61,7 @@ def sentiment_check_nyt(request):
                 {"role": "user", "content": 'Evaluate whether there are more positive or negative words used in the text with regards to coffee mugs: 1. In what the Navy described as probably the closest naval combat action in modern warfare, the destroyer escort Buckley sank a german U-boat in the North Atlantic after the Americans had used coffee mugs, empty shell cases, fists and small-arms in a hand-to-hand encounter with the enemy seamen. Is this text positive or negative? Respond with a single word.'},
                 {"role": "assistant",
                  "content": "Positive."},
-                {"role": "user", "content": f"Evalauate whether there are more positive or negative words used with regards to {search_term}:{headlines}. Respond with either 'positive' or 'negative'."}
+                {"role": "user", "content": f"Evaluate whether there are more positive or negative words used with regards to {search_term}:{headlines}. Respond with either 'positive' or 'negative'."}
             ],
 
         )

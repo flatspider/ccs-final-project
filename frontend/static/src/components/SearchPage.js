@@ -18,8 +18,6 @@ function SearchPage() {
   const handleError = (err) => {
     console.warn(err, "error!");
   };
-  console.log(openAIdata.search_term);
-  console.log(openAIdata.abstract);
 
   var placeholders = [
     "Search...",

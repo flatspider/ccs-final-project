@@ -15,7 +15,7 @@ import os
 
 # from django.contrib.auth.models import User
 
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 # Create your views here.
 
@@ -55,7 +55,7 @@ class DraftLetterDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class LetterFeedAPIView(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = LetterSerializer
 
     def get_queryset(self):

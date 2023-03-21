@@ -7,8 +7,8 @@ function NYtimes(props) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 778.34668 109.30667"
-      height={"inherit"}
-      width={"inherit"}
+      height={"100%"}
+      width={"100%"}
       xmlSpace="preserve"
       {...props}
     >
