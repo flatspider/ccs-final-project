@@ -52,6 +52,7 @@ function RegisterForm() {
     setEmail("");
     setPassword1("");
     setPassword2("");
+    window.location.href = "/";
   };
 
   return (
