@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 
 function ProfileViewer() {
   // Use state for each input. If changed, then make update.
-
   // UseEffect to trigger call to currently logged in user.
   // Need to see the custom profile model...?
 
