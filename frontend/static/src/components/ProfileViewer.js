@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Form, Button } from "react-bootstrap";
 import Cookies from "js-cookie";
 
 function ProfileViewer() {
@@ -7,7 +8,16 @@ function ProfileViewer() {
   // UseEffect to trigger call to currently logged in user.
   // Need to see the custom profile model...?
 
-  const [profile, setCurrentProfile] = useState("");
+  const [profile, setCurrentProfile] = useState({
+    display_name: "loading",
+    avatar: null,
+    first_name: "loading",
+    last_name: "loading",
+    user: "loading",
+    user_email: "loading",
+    user_name: "loading",
+  });
+  const [preview, setPreview] = useState("");
 
   const handleError = (err) => {
     console.warn("error!");
@@ -22,7 +32,6 @@ function ProfileViewer() {
           "X-CSRFToken": Cookies.get("csrftoken"),
         },
       };
-
       const response = await fetch("/api_v1/profile/", options).catch(
         handleError
       );
@@ -32,107 +41,141 @@ function ProfileViewer() {
       }
 
       const profileResponse = await response.json();
-      setCurrentProfile(profileResponse);
-      console.log("Current profile:", profileResponse);
+
+      if (profileResponse) {
+        setCurrentProfile(profileResponse[0]);
+        console.log("Current profile:", profile);
+      }
     };
     getProfile();
   }, []);
 
+  if (!profile) {
+    console.log("loading");
+  } else {
+    console.log("Updated profile", profile);
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("display_name", profile.display_name);
+    formData.append("avatar", profile.avatar);
+
+    const options = {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": Cookies.get("csrftoken"),
+        // Sending an image.
+      },
+      body: formData,
+    };
+
+    const response = await fetch("api_v1/profile/", options);
+    const data = await response.json();
+    console.log({ data });
+  };
+
+  const handleInput = (event) => {
+    // Destructures the name and value properties.
+    const { name, value } = event.target;
+    /*
+    setProfile({
+      ...profile,
+      [name]: value,
+    });
+
+    Below function executes the same function as above:
+    */
+
+    setCurrentProfile((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleImage = (event) => {
+    const file = event.target.files[0];
+    setCurrentProfile({
+      ...profile,
+      avatar: file, //This is the binary representation of the file 0100101010110
+    });
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <>
-      <div class="container bootstrap snippets bootdey">
-        <h1 class="text-primary">Edit Profile</h1>
+      <div className="d-flex justify-content-center align-items-center">
+        <Form onSubmit={handleSubmit}>
+          <input type="file" name="avatar" onChange={handleImage} />
+          {profile.avatar && <img src={preview} alt="" />}
 
-        <div class="row">
-          <div class="col-md-3">
-            <div class="text-center">
-              <img
-                src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                class="avatar img-circle img-thumbnail"
-                alt="avatar"
-              ></img>
-              <h6>Avatar: Upload a different photo...</h6>
+          <Form.Group className="mb-3" controlId="formDisplayName">
+            <Form.Label>Display Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="display_name"
+              placeholder="Enter display name"
+              value={profile.display_name}
+              onChange={handleInput}
+              autoComplete="off"
+            />
+          </Form.Group>
 
-              <input type="file" class="form-control"></input>
-            </div>
-          </div>
+          <Form.Group className="mb-3" controlId="formEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type="email"
+              name="user_email"
+              value={profile.user_email}
+              onChange={handleInput}
+              placeholder="Enter email"
+              autoComplete="off"
+            />
+          </Form.Group>
 
-          <div class="col-md-9 personal-info">
-            <h3>Personal info</h3>
+          <Form.Group className="mb-3" controlId="formUsername">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              onChange={handleInput}
+              name="user_name"
+              type="text"
+              value={profile.user_name}
+              placeholder="Enter username"
+              autoComplete="off"
+            />
+          </Form.Group>
 
-            <form class="form-horizontal" role="form">
-              <div class="form-group">
-                <label class="col-lg-3 control-label">First name:</label>
-                <div class="col-lg-8">
-                  <input
-                    class="form-control"
-                    type="text"
-                    value="dey-dey"
-                  ></input>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-lg-3 control-label">Last name:</label>
-                <div class="col-lg-8">
-                  <input
-                    class="form-control"
-                    type="text"
-                    value="bootdey"
-                  ></input>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-lg-3 control-label">User Name:</label>
-                <div class="col-lg-8">
-                  <input class="form-control" type="text" value=""></input>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-lg-3 control-label">Display name:</label>
-                <div class="col-lg-8">
-                  <input
-                    class="form-control"
-                    type="text"
-                    value="janesemail@gmail.com"
-                  ></input>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-lg-3 control-label">Time Zone:</label>
-                <div class="col-lg-8">
-                  <div class="ui-select">
-                    <select id="user_time_zone" class="form-control">
-                      <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                      <option value="Alaska">(GMT-09:00) Alaska</option>
-                      <option value="Pacific Time (US &amp; Canada)">
-                        (GMT-08:00) Pacific Time (US &amp; Canada)
-                      </option>
-                      <option value="Arizona">(GMT-07:00) Arizona</option>
-                      <option value="Mountain Time (US &amp; Canada)">
-                        (GMT-07:00) Mountain Time (US &amp; Canada)
-                      </option>
-                      <option
-                        value="Central Time (US &amp; Canada)"
-                        selected="selected"
-                      >
-                        (GMT-06:00) Central Time (US &amp; Canada)
-                      </option>
-                      <option value="Eastern Time (US &amp; Canada)">
-                        (GMT-05:00) Eastern Time (US &amp; Canada)
-                      </option>
-                      <option value="Indiana (East)">
-                        (GMT-05:00) Indiana (East)
-                      </option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <button type="button" class="btn btn-primary">
-                Save
-              </button>
-            </form>
-          </div>
-        </div>
+          <Form.Group className="mb-3" controlId="formFirstname">
+            <Form.Label>First name</Form.Label>
+            <Form.Control
+              value={profile.first_name}
+              onChange={handleInput}
+              type="text"
+              name="first_name"
+              placeholder="Enter first name"
+              autoComplete="off"
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formLastname">
+            <Form.Label>Last name</Form.Label>
+            <Form.Control
+              value={profile.last_name}
+              onChange={handleInput}
+              type="text"
+              name="last_name"
+              placeholder="Enter last name"
+              autoComplete="off"
+            />
+          </Form.Group>
+
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
       </div>
     </>
   );
