@@ -74,10 +74,11 @@ function BurgerMenu() {
         onOpen={() => {
           setMenuOpen(true);
         }}
+        width={"30%"}
       >
         {loggedIn && (
           <>
-            <div>You are currently logged in as {userData.username}</div>{" "}
+            <div>Logged in as {userData.username}</div>{" "}
             <Link
               onClick={setLogOut}
               id="log-out"

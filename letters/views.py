@@ -2,9 +2,9 @@ from django.shortcuts import render
 
 from rest_framework import generics
 
-from .models import Letter
+from .models import Letter, Article
 
-from .serializers import LetterSerializer
+from .serializers import LetterSerializer, ArticleSerializer
 
 import openai
 
@@ -60,6 +60,12 @@ class LetterFeedAPIView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return Letter.objects.filter(published=True)
+
+
+class ArticleCreationAPIView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
 
 
 # This function is passed the search term, the NYT opinion, and the users sentiment towards that opinion.

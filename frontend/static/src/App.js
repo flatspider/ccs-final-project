@@ -16,7 +16,7 @@ function App() {
       <Link
         to="/"
         className="nav-bar"
-        style={{ color: "black", textDecoration: "none" }}
+        style={{ color: "#23201f", textDecoration: "none" }}
       >
         e&nbsp;d&nbsp;i&nbsp;t&nbsp;o&nbsp;r&nbsp;i
       </Link>

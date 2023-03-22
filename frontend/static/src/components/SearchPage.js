@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import ArticleResults from "./ArticleResults";
 import ResultsPage from "./ResultsPage";
+import moment from "moment";
 
 function SearchPage() {
   const [search, setSearch] = useState("");
@@ -51,6 +52,7 @@ function SearchPage() {
           `Sentiment analysis for ${openAIdata.search_term} not completed.`
         );
         setFireOnce(false);
+
         throw new Error("Network response was not ok");
       }
 
@@ -88,6 +90,7 @@ function SearchPage() {
 
     if (!response.ok) {
       alert(`Search for ${search} not completed.`);
+      setSearchResults(false);
       throw new Error("Network response was not ok");
     }
 
@@ -116,6 +119,46 @@ function SearchPage() {
   // Do the abstracts have a unique ID? The NYTdata has the first 10 results for the search.
   // Pass all that data down to the letter component.
 
+  //Create a new article object. Send it to the article api endpoint and fill out each of the models.
+  //Is there an article ID?
+
+  const createArticle = async () => {
+    const firstArticle = NYTdata["response"]["docs"][0];
+    const formattedDate = moment(firstArticle.pub_date)
+      .utc()
+      .format("YYYY-MM-DD");
+
+    // The search useState variable is being set by the input box on the website.
+    const articleItem = {
+      search_term: openAIdata.search_term,
+      lead_paragraph: firstArticle.abstract,
+      web_url: firstArticle.web_url,
+      publication_date: formattedDate,
+    };
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+      body: JSON.stringify(articleItem),
+    };
+
+    const response = await fetch(`/api_v1/letters/articles/`, options).catch(
+      handleError
+    );
+
+    if (!response.ok) {
+      alert(`Article for ${openAIdata.search_term} was not created.`);
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+
+    console.log(data);
+  };
+
   if (!NYTdata) {
     abstractsHTML = <p>Loading...</p>;
   } else {
@@ -124,7 +167,9 @@ function SearchPage() {
     ));
   }
 
-  // Within javascript, create a concatenation of all of the abstract results.
+  useEffect(() => {
+    createArticle();
+  }, [NYTdata]);
 
   return (
     <div className="flex">

@@ -20,14 +20,23 @@
 }
 
 .nav-bar {
+  /*
+
+    align-items: bottom;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 5vw;
+    height: auto;
+
+  */
   background: #f8f8f8;
   height: 90px;
   position: fixed;
-  top: 0;
+  padding-top: 10px;
   display: flex;
   font-family: "League Spartan Variable";
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   font-weight: 900;
   font-size: 10vw;
   width: 100%;
@@ -66,26 +75,30 @@ a {
 /* Position and sizing of burger button */
 .bm-burger-button {
   position: fixed;
-  width: 36px;
-  height: 36px;
-  right: 36px;
-  top: 36px;
+  width: 125px;
+  height: 48px;
+  right: 0px;
+  top: 20px;
 }
 
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
-  background: #212529;
+  background: #23201f;
+  width: 30%;
+  height: 0px;
+  margin: auto;
 }
 
 /* Color/shape of burger icon bars on hover*/
 .bm-burger-bars-hover {
   background: #a90000;
+  height: 20px;
 }
 
 /* Position and sizing of clickable cross button */
 .bm-cross-button {
-  height: 24px;
-  width: 24px;
+  height: 44px;
+  width: 44px;
 }
 
 /* Color/shape of close button cross */
@@ -134,41 +147,25 @@ Note: Beware of modifying this element as it can break the animations - you shou
   height: 150px;
 }
 
-@media (max-width: 700px) {
+@media (min-width: 950px) {
   .nav-bar {
-    align-items: center;
-    justify-content: start;
-    font-weight: 900;
-    font-size: 10vw;
-  }
-  .bm-burger-button {
-    position: fixed;
-    width: 26px;
-    height: 26px;
-    right: 26px;
-    top: 26px;
-  }
-  .bm-menu {
-    background: #373a47;
-    padding: 2.5em 1.5em 0;
-    font-size: 1.15em;
-  }
-}
-
-@media (min-width: 900px) {
-  .bm-burger-button {
-    position: fixed;
-    width: 46px;
-    height: 46px;
-    right: 46px;
-    top: 46px;
-  }
-  .nav-bar {
-    align-items: bottom;
+    align-items: top;
     justify-content: center;
-    font-weight: 800;
-    font-size: 5vw;
-    height: auto;
+    font-weight: 900;
+    font-size: 7vw;
+    height: 140px;
+    padding-top: 27px;
+  }
+
+  .bm-burger-button {
+    position: fixed;
+    width: 250px;
+    height: 88px;
+    right: 0px;
+    top: 25px;
+  }
+  .nav-gap {
+    height: 300px;
   }
 }
 

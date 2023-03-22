@@ -29,16 +29,21 @@ function ResultsPage({
       .toLowerCase()
       .slice(0, 8)
       .replace(".", "");
+    let articleCount =
+      NYTdata["response"]["meta"]["hits"].toLocaleString("en-US");
     responseHTML = (
-      <p>
-        The New York Times has a {str_sentiment} view of{" "}
-        {openAIdata.search_term}.
-      </p>
+      <>
+        <p>
+          The New York Times has a <strong>{str_sentiment}</strong> view of{" "}
+          {openAIdata.search_term}. There have been {articleCount} articles
+          published about {openAIdata.search_term}.
+        </p>
+      </>
     );
   }
 
   // How do I send this info to the database?
-  // Where is the NYT data currently being stored? in
+  // Where is the NYT data currently being stored?
 
   const handleAgree = async (event) => {
     setRespond(true);
@@ -121,7 +126,7 @@ function ResultsPage({
                   <img src={nytAPI}></img>
                 </a>
                 <p className="card-text">
-                  The New York Times does not endorse, or have any affiliation
+                  The New York Times does not endorse or have any affiliation
                   with this project.
                 </p>
               </div>
