@@ -15,6 +15,7 @@ function SearchPage() {
   const [fireOnce, setFireOnce] = useState(true);
   const [sentiment, setSentiment] = useState("");
   const [searchResults, setSearchResults] = useState(false);
+  const [newArticle, setNewArticle] = useState("");
 
   const handleError = (err) => {
     console.warn(err, "error!");
@@ -156,7 +157,7 @@ function SearchPage() {
 
     const data = await response.json();
 
-    console.log(data);
+    setNewArticle(data);
   };
 
   if (!NYTdata) {
@@ -200,6 +201,7 @@ function SearchPage() {
       )}
       {searchResults && (
         <ResultsPage
+          newArticle={newArticle}
           NYTdata={NYTdata}
           sentiment={sentiment}
           openAIdata={openAIdata}

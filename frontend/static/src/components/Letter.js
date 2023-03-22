@@ -32,7 +32,7 @@ function Letter(props) {
     }
   }, [props.openAIletter]);
 
-  const addLetter = async (text, articleID) => {
+  const addLetter = async (text) => {
     const options = {
       method: "POST",
       headers: {
@@ -41,7 +41,7 @@ function Letter(props) {
       },
       body: JSON.stringify({
         text,
-        article: articleID,
+        about_article: props.newArticle.id,
         published: publishToFeed,
       }),
     };
@@ -61,7 +61,7 @@ function Letter(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const text = copyAIletter;
-    addLetter(text, props.articleID);
+    addLetter(text);
     setNewLetter({ text: "" });
     window.location.href = "/letters/";
   };

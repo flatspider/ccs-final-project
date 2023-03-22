@@ -9,6 +9,7 @@ function ResultsPage({
   openAIdata,
   sentimentHTML,
   abstractsHTML,
+  newArticle,
 }) {
   // Check if the results data has been provided.
   // If not, render the blinking NYT - - - OpenAI logos.
@@ -99,6 +100,7 @@ function ResultsPage({
     <>
       {respond && (
         <Letter
+          newArticle={newArticle}
           NYTdata={NYTdata}
           sentiment={sentiment}
           openAIdata={openAIdata}

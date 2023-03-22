@@ -19,6 +19,6 @@ class LetterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Letter
-        fields = ('id', 'text', 'author', 'author_name',
+        fields = ('id', 'text', 'author', 'author_name', 'article',
                   'about_article', 'published', 'votes', 'search_term')
         read_only_fields = ('author',)
