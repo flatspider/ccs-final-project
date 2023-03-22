@@ -8,6 +8,8 @@ import About from "./components/About";
 import LetterFeed from "./components/LetterFeed";
 import DraftLetters from "./components/DraftLetters";
 import ProfileViewer from "./components/ProfileViewer";
+import LogOut from "./components/LogOut";
+import NotFound404 from "./components/NotFound404";
 
 function App() {
   return (
@@ -28,8 +30,9 @@ function App() {
         <Route path="about/" element={<About />} />
         <Route path="feed/" element={<LetterFeed />} />
         <Route path="letters/" element={<DraftLetters />} />
-        <Route path="logout/" element={<SearchPage />} />
+        <Route path="logout/" element={<LogOut />} />
         <Route path="profile/" element={<ProfileViewer />} />
+        <Route path="*" element={<NotFound404 />} />
       </Routes>
     </div>
   );

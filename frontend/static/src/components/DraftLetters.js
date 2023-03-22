@@ -1,20 +1,12 @@
-//import Dropdown from "react-bootstrap/Dropdown";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
 function DraftLetters() {
-  // Call fetch request to have only currently logged in users letters returned.
-
-  // Build the subject matter on the left. Each letter should have a search_term model component.
-  // On the right, listen for a click on the categories. Map all of the letters to the letter component.
-  // What needs to be there? Allow for editing of the text, save, update?, and publish to feed.
-
-  // Add edit, save, publish buttons.
-
   const [draftletters, setDraftletters] = useState("");
   const [displayLetter, setDisplayLetter] = useState(0);
   const [save, setSave] = useState(false);
   const [updateText, setUpdateText] = useState("");
+  const [deleteLetter, setDeleteLetter] = useState(0);
 
   const handleError = (err) => {
     console.warn("error!");
@@ -58,7 +50,7 @@ function DraftLetters() {
     // Maps the database of channels to create channel buttons
     draftLetterListHTML = draftletters.map((letter, index) => (
       <a
-        href="#"
+        style={{ cursor: "pointer" }}
         onClick={() => {
           setDisplayLetter(index);
         }}
@@ -95,7 +87,7 @@ function DraftLetters() {
     // Create a fetch request to /api_v1/letters/drafts/{id number}/
     // We will use a PUT request to update text.
 
-    const saveEditThisChat = async () => {
+    const saveEditThisLetter = async () => {
       const options = {
         method: "PUT",
         headers: {
@@ -116,7 +108,7 @@ function DraftLetters() {
         throw new Error("Network response was not ok");
       }
     };
-    saveEditThisChat();
+    saveEditThisLetter();
     // Update the current state of the value text in the browser.
     draftletters[displayLetter].text = updateText;
   };
@@ -148,6 +140,36 @@ function DraftLetters() {
       }
     };
     publishThisLetter();
+  };
+
+  //Delete specific letter. Send
+  const handleDeleteLetter = () => {
+    //setSave(false);
+
+    // Create a fetch request to /api_v1/letters/drafts/{id number}/
+    // We will use a PUT request to update text.
+
+    const deleteThisLetter = async () => {
+      const options = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": Cookies.get("csrftoken"),
+        },
+      };
+
+      const deleteURL =
+        "/api_v1/letters/drafts/" + draftletters[displayLetter].id + "/";
+
+      const response = await fetch(deleteURL, options).catch(handleError);
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+    };
+    deleteThisLetter();
+    // Update the current state of the value text in the browser.
+    setDisplayLetter(0);
   };
 
   return (
@@ -215,6 +237,12 @@ function DraftLetters() {
 
               <button onClick={publishLetter} className="btn btn-primary m-1">
                 Publish
+              </button>
+              <button
+                onClick={handleDeleteLetter}
+                className="btn btn-danger m-1"
+              >
+                Delete
               </button>
             </div>
           </div>
