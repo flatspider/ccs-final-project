@@ -23,7 +23,7 @@ class ProfileCreateAPIView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
     def get_queryset(self):
-        # Retrieve only letters written by the requesting user
+        # Retrieve only the profile for the requesting user
         return Profile.objects.filter(user=self.request.user)
 
 
@@ -35,5 +35,5 @@ class ProfileDetailAPIView(generics.RetrieveUpdateAPIView):
         serializer.save(user=self.request.user)
 
     def get_queryset(self):
-        # Retrieve only letters written by the requesting user
+        # Retrieve only objects written by the requesting user
         return Profile.objects.filter(user=self.request.user)

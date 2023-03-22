@@ -202,6 +202,8 @@ function SearchPage() {
       )}
       {searchResults && (
         <ResultsPage
+          searchResults={searchResults}
+          setSearchResults={setSearchResults}
           newArticle={newArticle}
           NYTdata={NYTdata}
           sentiment={sentiment}

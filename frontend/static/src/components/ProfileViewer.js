@@ -60,6 +60,8 @@ function ProfileViewer() {
     const formData = new FormData();
     formData.append("display_name", profile.display_name);
     formData.append("avatar", profile.avatar);
+    formData.append("first_name", profile.first_name);
+    formData.append("last_name", profile.last_name);
 
     const options = {
       method: "POST",
@@ -70,7 +72,7 @@ function ProfileViewer() {
       body: formData,
     };
 
-    const response = await fetch("api_v1/profile/", options);
+    const response = await fetch("/api_v1/profile/", options);
     const data = await response.json();
     console.log({ data });
   };

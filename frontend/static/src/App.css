@@ -129,7 +129,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 
 .nav-gap {
-  height: 150px;
+  height: 130px;
 }
 
 @media (min-width: 950px) {
@@ -150,7 +150,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
     top: 25px;
   }
   .nav-gap {
-    height: 300px;
+    height: 200px;
   }
 }
 
@@ -279,4 +279,13 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .avatar {
   width: 200px;
   height: 200px;
+}
+
+@keyframes fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }

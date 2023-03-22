@@ -2,6 +2,7 @@ import Letter from "./Letter";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import nytAPI from "./nytAPI.png";
+import undoArrow from "./undoArrow.png";
 
 function ResultsPage({
   NYTdata,
@@ -10,6 +11,8 @@ function ResultsPage({
   sentimentHTML,
   abstractsHTML,
   newArticle,
+  searchResults,
+  setSearchResults,
 }) {
   // Check if the results data has been provided.
   // If not, render the blinking NYT - - - OpenAI logos.
@@ -120,6 +123,19 @@ function ResultsPage({
               DISAGREE
             </button>
           </div>
+
+          <div className="col">
+            Start a new search:
+            <button
+              onClick={() => {
+                setSearchResults(false);
+              }}
+              className="btn btn-white m-1"
+            >
+              <img src={undoArrow} style={{ width: 34, height: 34 }}></img>
+            </button>
+          </div>
+
           <div className="container mt-5 mb-3">
             {abstractsHTML}
             <div className="card m-3" style={{ width: "100%" }}>
