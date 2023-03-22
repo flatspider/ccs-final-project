@@ -125,6 +125,7 @@ function SearchPage() {
 
   const createArticle = async () => {
     const firstArticle = NYTdata["response"]["docs"][0];
+
     const formattedDate = moment(firstArticle.pub_date)
       .utc()
       .format("YYYY-MM-DD");

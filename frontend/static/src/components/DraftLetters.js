@@ -42,6 +42,9 @@ function DraftLetters() {
       const draftLetters = await response.json();
       setDraftletters(draftLetters);
       console.log("Current draft letters:", draftLetters);
+      const lastLetter = draftLetters.length - 1;
+      setDisplayLetter(lastLetter);
+      console.log(lastLetter);
     };
     getDraftLetters();
   }, []);

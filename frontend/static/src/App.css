@@ -13,12 +13,6 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .nav-bar {
   /*
 
@@ -57,15 +51,6 @@
 
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 a {
@@ -166,6 +151,13 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
   .nav-gap {
     height: 300px;
+  }
+}
+
+@media (max-width: 500px) {
+  .bm-burger-bars {
+    background: #23201f;
+    width: 80%;
   }
 }
 
