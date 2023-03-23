@@ -1,8 +1,6 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
 
-//To do: Send fetch request to log in at end point
-
 function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
@@ -10,9 +8,9 @@ function RegisterForm() {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [displayName, setDisplayName] = useState("defaultName");
   const [error, setError] = useState("");
 
-  // No account, then offer the registration button.
   const handleError = (error) => {
     console.warn("error!");
   };
@@ -25,6 +23,7 @@ function RegisterForm() {
       password1,
       password2,
       email,
+      display_name: displayName,
     };
 
     if (user.password1 !== user.password2) {
@@ -53,39 +52,6 @@ function RegisterForm() {
     // Set the cookie Authorization the data token:
     Cookies.set("Authorization", `Token ${data}`);
 
-    // Create an the additional Profile when registering a user.
-
-    const profileCreate = async (user) => {
-      user = { ...user, first_name: firstName, last_name: lastName };
-
-      console.log(user);
-
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": Cookies.get("csrftoken"),
-        },
-        body: JSON.stringify(user),
-      };
-
-      const response = await fetch("/api_v1/profile/", options).catch(
-        handleError
-      );
-
-      if (!response.ok) {
-        alert("Incorrect credentials.");
-        throw new Error("Network response was not ok");
-      }
-      setUsername("");
-      setEmail("");
-      setPassword1("");
-      setPassword2("");
-      setFirstName("");
-      setLastName("");
-    };
-
-    profileCreate(user);
     window.location.href = "/";
   };
 

@@ -191,6 +191,11 @@ SITE_ID = 1
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+# https://django-rest-auth.readthedocs.io/en/latest/configuration.html
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer'
+}
+
 
 # https://whitenoise.evans.io/en/stable/django.html
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
