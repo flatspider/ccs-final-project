@@ -114,7 +114,7 @@ function ProfileViewer() {
       <div className="d-flex justify-content-center align-items-center">
         <Form onSubmit={handleSubmit}>
           <input type="file" name="avatar" onChange={handleImage} />
-          {profile.avatar && <img src={preview} alt="" />}
+          <img className="avatar" src={preview || profile.avatar} />
 
           <Form.Group className="mb-3" controlId="formDisplayName">
             <Form.Label>Display Name</Form.Label>
