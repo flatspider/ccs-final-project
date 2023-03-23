@@ -3,10 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import Cookies from "js-cookie";
 
 function ProfileViewer() {
-  // Use state for each input. If changed, then make update.
-  // UseEffect to trigger call to currently logged in user.
-  // Need to see the custom profile model...?
-
+  const [preview, setPreview] = useState("");
   const [profile, setCurrentProfile] = useState({
     display_name: "loading",
     avatar: null,
@@ -16,7 +13,6 @@ function ProfileViewer() {
     user_email: "loading",
     user_name: "loading",
   });
-  const [preview, setPreview] = useState("");
 
   const handleError = (err) => {
     console.warn("error!");
@@ -176,7 +172,7 @@ function ProfileViewer() {
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Button variant="dark" type="submit">
             Submit
           </Button>
         </Form>

@@ -4,25 +4,12 @@
   font-weight: 200 900;
 }
 
-.App {
-  /*text-align: center;*/
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
 .nav-bar {
-  /*
-
-    align-items: bottom;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 5vw;
-    height: auto;
-
-  */
   background: #f8f8f8;
   height: 90px;
   position: fixed;
@@ -56,6 +43,7 @@
 a {
   color: white;
 }
+
 /* Below contains default styling of burger menu icon*/
 /* Position and sizing of burger button */
 .bm-burger-button {
@@ -367,4 +355,12 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 .article-link {
   scroll-margin-top: 140px;
+}
+
+.code-block {
+  justify-content: center;
+  font-size: 14px;
+  color: #fefffe;
+  background-color: #202020;
+  border-radius: 20px;
 }

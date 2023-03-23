@@ -2,13 +2,6 @@ import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
 function LetterFeed() {
-  // Call the django view to return all letters with publish == true.
-  // Map the letters to the cards.
-  // Sort the letters based on their current upvote count.
-  // Create an upvote and downvote button on the right side of the cards
-  // Upvote triggers a plus one count to votes.
-  // Possibly re-render to sort the cards?
-
   const [feedLetters, setFeedLetters] = useState("");
 
   const handleError = (err) => {
@@ -46,22 +39,21 @@ function LetterFeed() {
     console.log("loading");
   } else {
     // Map the letters. Search term goes to the group item heading object.
-    // Maps the database of channels to create channel buttons
     feedLetterListHTML = feedLetters.map((letter, index) => (
-      <div class="card w-75 m-2">
-        <h5 class="card-header">
+      <div key={letter.id} className="card w-75 m-2">
+        <h5 className="card-header">
           {letter.search_term}:
           {letter.published ? "Published" : "Not Published"}
         </h5>
-        <div class="card-body">
-          <h5 class="card-title">{letter.text.slice(0, 30)}t</h5>
-          <p class="card-text">{letter.text}</p>
-          <p class="card-text">{letter.author_name}</p>
-          <a href="#" class="btn btn-primary m-2">
+        <div className="card-body">
+          <h5 className="card-title">{letter.text.slice(0, 30)}t</h5>
+          <p className="card-text">{letter.text}</p>
+          <p className="card-text">{letter.author_name}</p>
+          <a href="#" className="btn btn-primary m-2">
             ⬆️
           </a>
           {letter.votes}
-          <a href="#" class="btn btn-sm btn-danger">
+          <a href="#" className="btn btn-sm btn-danger">
             ⬇️
           </a>
         </div>
@@ -70,10 +62,7 @@ function LetterFeed() {
   }
 
   return (
-    <div class="row d-flex justify-content-center">
-      This is a feed of letters. Maybe cards, with an upvote, downvote set up.{" "}
-      Make a fetch request to the letter database, then display all of the
-      letters with vote buttons on the right.
+    <div className="row d-flex justify-content-center">
       {feedLetterListHTML}
     </div>
   );

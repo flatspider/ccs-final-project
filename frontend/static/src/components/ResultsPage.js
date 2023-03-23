@@ -2,7 +2,6 @@ import Letter from "./Letter";
 import { useState, useEffect, useRef } from "react";
 import Cookies from "js-cookie";
 import nytAPI from "./nytAPI.png";
-import undoArrow from "./undoArrow.png";
 import OpenAILogo from "./OpenAILogo";
 import CircleNYTlogo from "./CircleNYTlogo";
 
@@ -28,13 +27,12 @@ function ResultsPage({
       block: "start",
       inline: "nearest",
     });
-  // run this function from an event handler or an effect to execute scroll
 
   const handleError = (err) => {
     console.warn(err, "error!");
   };
 
-  let responseHTML = <p>LOADING SENTIMENT</p>;
+  let responseHTML = <p>Loading sentiment!</p>;
 
   if (!sentiment) {
   } else {
@@ -60,9 +58,6 @@ function ResultsPage({
     );
   }
 
-  // How do I send this info to the database?
-  // Where is the NYT data currently being stored?
-
   const handleDisagree = () => {
     setEmojiButton("Disagree");
   };
@@ -82,15 +77,11 @@ function ResultsPage({
     setRespond(true);
 
     // Send out the sentiment, abstracts, and search term.
-    // Have the Django view get a technically sound letter.
-
     const letterDescription = {
       search_term: openAIdata.search_term,
       nyt_perspective: sentiment,
       user_choice: emojiButton,
     };
-
-    console.log(letterDescription);
 
     const options = {
       method: "POST",
@@ -132,7 +123,7 @@ function ResultsPage({
         </div>
       )}
 
-      {!openAIletter && respond && <OpenAILogo className="fade" />}
+      {!openAIletter && respond && <OpenAILogo />}
 
       {respond && (
         <Letter

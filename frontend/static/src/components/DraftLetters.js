@@ -8,6 +8,7 @@ function DraftLetters() {
   const [updateText, setUpdateText] = useState("");
   const [deleteLetter, setDeleteLetter] = useState(0);
   const [activeLink, setActiveLink] = useState(null);
+  const [emptyDrafts, setEmptyDrafts] = useState(true);
 
   const handleError = (err) => {
     console.warn("error!");
@@ -30,22 +31,24 @@ function DraftLetters() {
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
+      } else {
+        const draftLetters = await response.json();
+        setDraftletters(draftLetters);
+        //console.log("Current draft letters:", draftLetters);
+        const lastLetter = draftLetters.length - 1;
+        setDisplayLetter(lastLetter);
+        setActiveLink(lastLetter);
+        if (draftLetters.length > 0) {
+          setEmptyDrafts(false);
+        }
       }
-
-      const draftLetters = await response.json();
-      setDraftletters(draftLetters);
-      console.log("Current draft letters:", draftLetters);
-      const lastLetter = draftLetters.length - 1;
-      setDisplayLetter(lastLetter);
-      setActiveLink(lastLetter);
     };
     getDraftLetters();
   }, []);
 
   let draftLetterListHTML = <p>Loading letters...</p>;
 
-  if (!draftletters) {
-    console.log("loading");
+  if (!draftletters || emptyDrafts) {
   } else {
     // Map the letters. Search term goes to the group item heading object.
     // Maps the database of channels to create channel buttons
@@ -77,7 +80,7 @@ function DraftLetters() {
   let displayedLetterText = "Loading....";
   let author = "User";
 
-  if (draftletters) {
+  if (draftletters && !emptyDrafts) {
     displayedLetterText = draftletters[displayLetter].text;
     author = draftletters[0].author_name;
   }
@@ -123,7 +126,6 @@ function DraftLetters() {
 
   const publishLetter = () => {
     // Update the state of the letter from publish false to publish true
-    console.log(draftletters[displayLetter].id);
 
     const publishThisLetter = async () => {
       const options = {
@@ -186,72 +188,83 @@ function DraftLetters() {
         href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
         rel="stylesheet"
       ></link>
-      <div className="container">
-        <div className="row message-wrapper rounded shadow mb-20">
-          <div className="col-md-4 message-sideleft">
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title">Draft Letters</h3>
+      {emptyDrafts && (
+        <h3 style={{ textAlign: "center" }}>
+          Hit the search bar!<br></br>You do not have a single draft to view.
+        </h3>
+      )}
+      {!emptyDrafts && (
+        <div className="container">
+          <div className="row message-wrapper rounded shadow mb-20">
+            <div className="col-md-4 message-sideleft">
+              <div className="panel">
+                <div className="panel-heading">
+                  <h3 className="panel-title">Draft Letters</h3>
 
-                <div className="clearfix"></div>
-              </div>
-              <div className="panel-body no-padding">
-                <div className="list-group no-margin list-message">
-                  {draftLetterListHTML}
+                  <div className="clearfix"></div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-8 message-sideright">
-            <div className="panel">
-              <div className="panel-heading">
-                <div className="media">
-                  <div className="media-body">
-                    <h4 className="media-heading"></h4>
-                    <small>From the desk of: {author}</small>
+                <div className="panel-body no-padding">
+                  <div className="list-group no-margin list-message">
+                    {draftLetterListHTML}
                   </div>
                 </div>
               </div>
-              <div className="panel-body">
-                {!save ? (
-                  <p className="lead ">{displayedLetterText}</p>
-                ) : (
-                  <textarea
-                    style={{ width: "100%", height: 300 }}
-                    value={updateText}
-                    onChange={(e) => {
-                      setUpdateText(e.target.value);
-                    }}
-                  ></textarea>
-                )}
-
-                <br></br>
-              </div>
             </div>
-            <div className="d-flex justify-content-end align-items-end">
-              {save ? (
-                <button onClick={saveLetter} className="btn btn-secondary m-1">
-                  Save
+            <div className="col-md-8 message-sideright">
+              <div className="panel">
+                <div className="panel-heading">
+                  <div className="media">
+                    <div className="media-body">
+                      <h4 className="media-heading"></h4>
+                      <small>From the desk of: {author}</small>
+                    </div>
+                  </div>
+                </div>
+                <div className="panel-body">
+                  {!save ? (
+                    <p className="lead ">{displayedLetterText}</p>
+                  ) : (
+                    <textarea
+                      style={{ width: "100%", height: 300 }}
+                      value={updateText}
+                      onChange={(e) => {
+                        setUpdateText(e.target.value);
+                      }}
+                    ></textarea>
+                  )}
+                  <br></br>
+                </div>
+              </div>
+              <div className="d-flex justify-content-end align-items-end">
+                {save ? (
+                  <button
+                    onClick={saveLetter}
+                    className="btn btn-secondary m-1"
+                  >
+                    Save
+                  </button>
+                ) : (
+                  <button
+                    onClick={editLetter}
+                    className="btn btn-secondary m-1"
+                  >
+                    Edit
+                  </button>
+                )}
+                <button onClick={publishLetter} className="btn btn-primary m-1">
+                  Publish
                 </button>
-              ) : (
-                <button onClick={editLetter} className="btn btn-secondary m-1">
-                  Edit
+                <button
+                  onClick={handleDeleteLetter}
+                  className="btn btn-danger m-1"
+                >
+                  Delete
                 </button>
-              )}
-
-              <button onClick={publishLetter} className="btn btn-primary m-1">
-                Publish
-              </button>
-              <button
-                onClick={handleDeleteLetter}
-                className="btn btn-danger m-1"
-              >
-                Delete
-              </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
