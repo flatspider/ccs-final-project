@@ -16,13 +16,19 @@ function ResultsPage({
   searchResults,
   setSearchResults,
 }) {
-  // Check if the results data has been provided.
-  // If not, render the blinking NYT - - - OpenAI logos.
-
   const [respond, setRespond] = useState(false);
   const [openAIletter, setOpenAIletter] = useState("");
-
   const [emojiButton, setEmojiButton] = useState("Agree");
+
+  const myRef = useRef(null);
+
+  const executeScroll = () =>
+    myRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
+  // run this function from an event handler or an effect to execute scroll
 
   const handleError = (err) => {
     console.warn(err, "error!");
@@ -140,13 +146,13 @@ function ResultsPage({
       )}
 
       {!respond && sentiment && (
-        <div className="responseWrapper">
+        <div className=" responseWrapper">
           <div
-            className="d-flex row sentiment-border "
+            className="d-flex row sentiment-border mx-auto col-12 col-md-4 m-2"
             style={{ textAlign: "center" }}
           >
-            {responseHTML}
-            <div className="col">
+            <div className="col m-5">
+              {responseHTML}
               <button
                 onClick={handleAgree}
                 className="btn emoji btn-light btn-lg"
@@ -176,8 +182,17 @@ function ResultsPage({
               </button>
             </div>
           </div>
+          <div className="citation-space col-4 mx-auto">
+            <button
+              onClick={executeScroll}
+              className="rounded-pill btn btn-dark col-12 mx-auto"
+            >
+              {" "}
+              View Citations
+            </button>
+          </div>
 
-          <div className="container mt-5">
+          <div ref={myRef} className="container mt-5 article-link">
             {abstractsHTML}
 
             <div

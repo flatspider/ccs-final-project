@@ -19,7 +19,6 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class CustomRegisterSerializer(RegisterSerializer):
     display_name = serializers.CharField()
-    # avatar = serializers.ImageField()
 
     # Does this function need to be placed in a class CustomRegisterSerializer?
     def custom_signup(self, request, user):
