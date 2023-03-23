@@ -289,3 +289,19 @@ Note: Beware of modifying this element as it can break the animations - you shou
   margin-right: -90px;
   width: 36%;
 }
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

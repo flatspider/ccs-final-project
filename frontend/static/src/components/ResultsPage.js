@@ -3,6 +3,8 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import nytAPI from "./nytAPI.png";
 import undoArrow from "./undoArrow.png";
+import OpenAILogo from "./OpenAILogo";
+import CircleNYTlogo from "./CircleNYTlogo";
 
 function ResultsPage({
   NYTdata,
@@ -101,6 +103,14 @@ function ResultsPage({
 
   return (
     <>
+      {!sentiment && (
+        <div className="d-flex justify-content-center align-items-center">
+          <CircleNYTlogo className="ms-3 me-3 pulse" />
+
+          <OpenAILogo className="ms-3 me-3 pulse" />
+        </div>
+      )}
+
       {respond && (
         <Letter
           newArticle={newArticle}
@@ -112,7 +122,7 @@ function ResultsPage({
         />
       )}
 
-      {!respond && (
+      {!respond && sentiment && (
         <div>
           {responseHTML}
           <div className="col">
