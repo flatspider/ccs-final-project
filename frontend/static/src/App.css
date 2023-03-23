@@ -72,6 +72,7 @@ a {
   width: 30%;
   height: 0px;
   margin: auto;
+  border-radius: 16px;
 }
 
 /* Color/shape of burger icon bars on hover*/
@@ -103,8 +104,9 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* General sidebar styles */
 .bm-menu {
   background: #373a47;
-  padding: 2.5em 1.5em 0;
-  font-size: 1.15em;
+  padding: 2.5em 0em 0;
+  font-size: 2.45em;
+  font-family: "League Spartan Variable";
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -279,4 +281,11 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .avatar {
   width: 200px;
   height: 200px;
+}
+
+.btn-xl {
+  padding: 3px 20px;
+  font-size: 33px;
+  margin-right: -90px;
+  width: 36%;
 }

@@ -16,21 +16,31 @@ function SearchPage() {
   const [sentiment, setSentiment] = useState("");
   const [searchResults, setSearchResults] = useState(false);
   const [newArticle, setNewArticle] = useState("");
+  const [cycle, setNextCycle] = useState(0);
 
   const handleError = (err) => {
     console.warn(err, "error!");
   };
 
-  var placeholders = [
-    "Search...",
+  const placeholders = [
+    "koala bears...",
     "Greenville, SC...",
     "rubber ducks...",
-    "space shuttle...",
+    "space exploration...",
     "programming...",
     "bootcamps...",
   ];
 
-  let cycle = 0;
+  // Establishes setInterval method that fires every 1500. Cycles through the remainder over the length of the array.
+  // When the component unmounts, it stops the function.
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setNextCycle((prevIndex) => (prevIndex + 1) % placeholders.length);
+    }, 1500);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   useEffect(() => {
     const fetchSentiment = async () => {
@@ -174,30 +184,48 @@ function SearchPage() {
   }, [NYTdata]);
 
   return (
-    <div className="flex">
+    <div>
       {!searchResults && (
         <>
-          <h1>WHAT DOES </h1>
-          <NYtimes className="w-75" />
-          <h1 className="mt-3">
-            THINK ABOUT{" "}
-            <input
-              className="input"
-              type="search"
-              placeholder={placeholders[cycle]}
-              size="20"
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-              autoFocus
-            ></input>{" "}
-            ?
-          </h1>
-          <button className="btn btn-dark mt-5 me-2" onClick={handleSearch}>
-            FIND OUT
-          </button>
-          <a className="btn btn-dark mt-5" href="/feed/">
-            VIEW FEED
-          </a>
+          <div className="container mt-5">
+            <div className="row">
+              <div className="col-3 ">
+                <h1>What does </h1>
+              </div>
+              <div className="row justify-content-center my-4">
+                <div className="col-12 d-flex justify-content-center">
+                  <NYtimes className="w-75" />
+                </div>
+              </div>
+              <div className="col-12 d-flex justify-content-end">
+                <h1 className="text-end">
+                  think about{" "}
+                  <input
+                    className="input"
+                    type="search"
+                    placeholder={placeholders[cycle]}
+                    size="20"
+                    value={search}
+                    onChange={(event) => setSearch(event.target.value)}
+                    autoFocus
+                    required
+                  ></input>{" "}
+                  ?
+                </h1>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-11 text-end mt-4">
+                <button
+                  className="btn btn-dark btn-xl rounded-pill"
+                  onClick={handleSearch}
+                >
+                  Find Out
+                </button>
+              </div>
+            </div>
+          </div>
         </>
       )}
       {searchResults && (
