@@ -166,11 +166,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* ========================================================================
  * Letter Draft formatting:
  * ======================================================================== */
-.message form {
-  padding: 6px 15px;
-  background-color: #fafafa;
-  border-bottom: 1px solid #e6ebed;
-}
+
 .message form .has-icon .form-control-icon {
   position: absolute;
   z-index: 5;
@@ -209,7 +205,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
   padding-left: 0px;
 }
 .message-wrapper .message-sideright {
-  background-color: #f8f8f8;
+  background-color: #ffffff;
 }
 .message-wrapper .message-sideright[class*="col-"] {
   padding: 30px;
@@ -248,14 +244,17 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 .list-message .list-group-item {
   padding: 15px;
-  color: #999999 !important;
 }
-.list-message .list-group-item.active {
-  background-color: #eeeeee;
-  border-bottom: 1px solid #ddd !important;
-}
+
 .list-message .list-group-item.active p {
   color: #999999 !important;
+}
+
+.list-message .list-group-item.active {
+  background-color: white;
+  border-bottom: 5px solid black !important;
+  border: solid black 5px;
+  color: none;
 }
 .list-message .list-group-item.active:hover,
 .list-message .list-group-item.active:focus,
@@ -267,6 +266,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 .list-message .list-group-item .list-group-item-heading {
   color: #999999 !important;
+}
+
+.list-message .list-group-item .list-group-item-heading.active {
+  color: black;
 }
 .list-message .list-group-item .list-group-item-text {
   margin-bottom: 10px;
@@ -286,7 +289,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .btn-xl {
   padding: 3px 20px;
   font-size: 33px;
-  margin-right: -90px;
+  margin-right: -92px;
   width: 36%;
 }
 
@@ -350,4 +353,8 @@ Note: Beware of modifying this element as it can break the animations - you shou
   border: solid black 5px;
 
   border-radius: 20px;
+}
+
+.initial-letter {
+  font-size: large;
 }

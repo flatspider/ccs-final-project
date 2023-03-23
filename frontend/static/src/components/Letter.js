@@ -59,42 +59,41 @@ function Letter(props) {
     window.location.href = "/letters/";
   };
 
+  const fSentiment = props.sentiment
+    .toString()
+    .toLowerCase()
+    .slice(0, 8)
+    .replace(".", "");
+
   return (
     <>
-      {!copyAIletter && <OpenAILogo className="fade" />}
       {copyAIletter && (
-        <div className="d-flex justify-content-center">
-          <form onSubmit={handleSubmit}>
-            <textarea
-              className="form-control"
-              id="text"
-              name="text"
-              placeholder="Your letter from OpenAI is loading..."
-              rows="20"
-              cols="60"
-              value={copyAIletter}
-              onChange={(e) => {
-                setCopyAIletter(e.target.value);
-              }}
-            ></textarea>
-            <span
-              className="pull-right label label-default"
-              id="count_message"
-            ></span>
-            <br></br>
-            <button className="btn btn-info" type="submit">
-              Save
-            </button>
-            <button
-              onClick={() => {
-                setPublishToFeed(true);
-              }}
-              className="btn btn-info m-2"
-              type="button"
-            >
-              Publish to Feed
-            </button>
-          </form>
+        <div className="col-4 mx-auto" style={{ textAlign: "center" }}>
+          <h1>
+            Your letter regarding the {fSentiment} position of the NYT on{" "}
+            {props.openAIdata.search_term}:
+          </h1>
+          <div className="d-flex justify-content-center">
+            <form onSubmit={handleSubmit}>
+              <textarea
+                className="form-control initial-letter"
+                id="text"
+                name="text"
+                placeholder="Your letter from OpenAI is loading..."
+                rows="20"
+                cols="61"
+                value={copyAIletter}
+                onChange={(e) => {
+                  setCopyAIletter(e.target.value);
+                }}
+              ></textarea>
+              <div className="m-4" style={{ textAlign: "center" }}>
+                <button className="btn btn-dark" type="submit">
+                  Save to Drafts
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
     </>

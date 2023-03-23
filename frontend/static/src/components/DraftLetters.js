@@ -7,6 +7,7 @@ function DraftLetters() {
   const [save, setSave] = useState(false);
   const [updateText, setUpdateText] = useState("");
   const [deleteLetter, setDeleteLetter] = useState(0);
+  const [activeLink, setActiveLink] = useState(null);
 
   const handleError = (err) => {
     console.warn("error!");
@@ -36,7 +37,7 @@ function DraftLetters() {
       console.log("Current draft letters:", draftLetters);
       const lastLetter = draftLetters.length - 1;
       setDisplayLetter(lastLetter);
-      console.log(lastLetter);
+      setActiveLink(lastLetter);
     };
     getDraftLetters();
   }, []);
@@ -53,12 +54,19 @@ function DraftLetters() {
         style={{ cursor: "pointer" }}
         onClick={() => {
           setDisplayLetter(index);
+          setActiveLink(index);
         }}
-        className="list-group-item"
+        className={`list-group-item ${activeLink === index ? "active" : ""}`}
       >
-        <h4 className="list-group-item-heading">{letter.search_term}</h4>
+        <h4
+          className={`list-group-item-heading ${
+            activeLink === index ? "active" : ""
+          }`}
+        >
+          {letter.search_term}
+        </h4>
         <p className="list-group-item-text">{letter.text.slice(0, 30)}</p>
-        <span className="label label-success pull-right">
+        <span className="label">
           {letter.published ? "Published" : "Not Published"}
         </span>
         <div className="clearfix"></div>
@@ -200,7 +208,7 @@ function DraftLetters() {
                 <div className="media">
                   <div className="media-body">
                     <h4 className="media-heading"></h4>
-                    <small>Friday 17th March 2023</small>
+                    <small>From the desk of: {author}</small>
                   </div>
                 </div>
               </div>
@@ -218,10 +226,6 @@ function DraftLetters() {
                 )}
 
                 <br></br>
-                <p>
-                  Sincerely, <br></br>
-                  {author}
-                </p>
               </div>
             </div>
             <div className="d-flex justify-content-end align-items-end">

@@ -126,9 +126,7 @@ function ResultsPage({
         </div>
       )}
 
-      {!openAIletter && respond && (
-        <p style={{ textAlign: "center" }}>The letter is loading!</p>
-      )}
+      {!openAIletter && respond && <OpenAILogo className="fade" />}
 
       {respond && (
         <Letter
