@@ -183,6 +183,17 @@ function DraftLetters() {
     setDisplayLetter(0);
   };
 
+  const mailTo = () => {
+    let mailURL =
+      "mailto:letters@nytimes.com?subject=" +
+      draftletters[displayLetter].search_term +
+      "&body=" +
+      draftletters[displayLetter].text +
+      "%0D%0ASincerely, " +
+      draftletters[displayLetter].author_name;
+    window.location = mailURL;
+  };
+
   return (
     <>
       <link
@@ -293,6 +304,7 @@ function DraftLetters() {
               </div>
               <div className="col-4 mx-auto">
                 <button
+                  onClick={mailTo}
                   className="btn btn-dark mt-2 rounded-pill"
                   style={{ width: "100%" }}
                 >
