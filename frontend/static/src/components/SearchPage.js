@@ -8,15 +8,15 @@ import moment from "moment";
 function SearchPage() {
   const [search, setSearch] = useState("");
   const [NYTdata, setNYTdata] = useState("");
-  const [openAIdata, setOpenAIdata] = useState({
-    search_term: "",
-    abstract: "",
-  });
   const [fireOnce, setFireOnce] = useState(true);
   const [sentiment, setSentiment] = useState("");
   const [searchResults, setSearchResults] = useState(false);
   const [newArticle, setNewArticle] = useState("");
   const [cycle, setNextCycle] = useState(0);
+  const [openAIdata, setOpenAIdata] = useState({
+    search_term: "",
+    abstract: "",
+  });
 
   const handleError = (err) => {
     console.warn(err, "error!");
@@ -106,19 +106,13 @@ function SearchPage() {
     }
 
     const data = await response.json();
-
     const abstracts = data.response.docs.map((doc) => doc.abstract);
-
     setNYTdata(data);
-    // Set the cookie Authorization the data token:
-
     setOpenAIdata({ search_term: searchInput.search, abstract: abstracts });
-
     setSearch("");
   };
 
   let abstractsHTML = <p>&nbsp;</p>;
-
   let sentimentHTML = <p>&nbsp;</p>;
 
   if (!sentiment) {
@@ -126,12 +120,6 @@ function SearchPage() {
   } else {
     sentimentHTML = <p>{sentiment}</p>;
   }
-
-  // Do the abstracts have a unique ID? The NYTdata has the first 10 results for the search.
-  // Pass all that data down to the letter component.
-
-  //Create a new article object. Send it to the article api endpoint and fill out each of the models.
-  //Is there an article ID?
 
   const createArticle = async () => {
     const firstArticle = NYTdata["response"]["docs"][0];

@@ -54,6 +54,7 @@ function DraftLetters() {
     // Maps the database of channels to create channel buttons
     draftLetterListHTML = draftletters.map((letter, index) => (
       <a
+        key={index}
         style={{ cursor: "pointer" }}
         onClick={() => {
           setDisplayLetter(index);
@@ -235,30 +236,67 @@ function DraftLetters() {
                   <br></br>
                 </div>
               </div>
-              <div className="d-flex justify-content-end align-items-end">
+              <div className="d-flex col-4 mx-auto">
                 {save ? (
                   <button
+                    style={{
+                      borderTopLeftRadius: 20,
+                      borderBottomLeftRadius: 20,
+                      borderTopRightRadius: 0,
+                      borderBottomRightRadius: 0,
+                      width: "100%",
+                    }}
                     onClick={saveLetter}
-                    className="btn btn-secondary m-1"
+                    className="btn btn-secondary"
                   >
                     Save
                   </button>
                 ) : (
                   <button
+                    style={{
+                      borderTopLeftRadius: 20,
+                      borderBottomLeftRadius: 20,
+                      borderTopRightRadius: 0,
+                      borderBottomRightRadius: 0,
+                      width: "100%",
+                    }}
                     onClick={editLetter}
-                    className="btn btn-secondary m-1"
+                    className="btn btn-dark"
                   >
                     Edit
                   </button>
                 )}
-                <button onClick={publishLetter} className="btn btn-primary m-1">
+                <button
+                  style={{
+                    borderLeft: "solid white 1px",
+                    borderRight: "solid white 1px",
+                    width: "100%",
+                  }}
+                  onClick={publishLetter}
+                  className="btn btn-dark rounded-0"
+                >
                   Publish
                 </button>
                 <button
+                  style={{
+                    borderTopRightRadius: 20,
+                    borderBottomRightRadius: 20,
+                    borderTopLeftRadius: 0,
+                    borderBottomLeftRadius: 0,
+                    width: "100%",
+                  }}
                   onClick={handleDeleteLetter}
-                  className="btn btn-danger m-1"
+                  className="btn btn-dark"
                 >
                   Delete
+                </button>
+              </div>
+              <div className="col-4 mx-auto">
+                <button
+                  className="btn btn-dark mt-2 rounded-pill"
+                  style={{ width: "100%" }}
+                >
+                  Mail To Editor
                 </button>
               </div>
             </div>
