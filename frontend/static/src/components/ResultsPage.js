@@ -1,5 +1,5 @@
 import Letter from "./Letter";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Cookies from "js-cookie";
 import nytAPI from "./nytAPI.png";
 import undoArrow from "./undoArrow.png";
@@ -22,6 +22,8 @@ function ResultsPage({
   const [respond, setRespond] = useState(false);
   const [openAIletter, setOpenAIletter] = useState("");
 
+  const [emojiButton, setEmojiButton] = useState("Agree");
+
   const handleError = (err) => {
     console.warn(err, "error!");
   };
@@ -41,15 +43,34 @@ function ResultsPage({
       <>
         <p>
           The New York Times has a <strong>{str_sentiment}</strong> view of{" "}
-          {openAIdata.search_term}. There have been {articleCount} articles
-          published about {openAIdata.search_term}.
+          {openAIdata.search_term}.{" "}
         </p>
+        <p>
+          There have been {articleCount} articles published about{" "}
+          {openAIdata.search_term}.
+        </p>
+        <p>Do you agree with the New York Times?</p>
       </>
     );
   }
 
   // How do I send this info to the database?
   // Where is the NYT data currently being stored?
+
+  const handleDisagree = () => {
+    setEmojiButton("Disagree");
+  };
+
+  const firstRenderRef = useRef(false);
+
+  useEffect(() => {
+    if (firstRenderRef.current) {
+      console.log("Block only runs AFTER initial render");
+      //handleAgree();
+    } else {
+      firstRenderRef.current = true;
+    }
+  }, [emojiButton]);
 
   const handleAgree = async (event) => {
     setRespond(true);
@@ -60,7 +81,7 @@ function ResultsPage({
     const letterDescription = {
       search_term: openAIdata.search_term,
       nyt_perspective: sentiment,
-      user_choice: event.target.innerText,
+      user_choice: emojiButton,
     };
 
     console.log(letterDescription);
@@ -88,27 +109,25 @@ function ResultsPage({
     console.log(data);
 
     setOpenAIletter(data.text);
-
-    //Take the OpenAI completion text and set it to textArea default value.
-    //Pass down the value through props on Letter component.
-    //Set letter template? Is there a variable on state?
   };
-
-  // Map the nytdata. Have the abstract text placed into the card.
-  // Create a link with the web_url.
-
-  if (NYTdata) {
-    console.log(NYTdata["response"]["docs"]);
-  }
 
   return (
     <>
       {!sentiment && (
         <div className="d-flex justify-content-center align-items-center">
           <CircleNYTlogo className="ms-3 me-3 pulse" />
-
+          <div className="moving-buttons">
+            <button className="btn btn-dark m-2 pulseB"></button>
+            <button className="btn btn-dark m-2 pulseB"></button>
+            <button className="btn btn-dark m-2 pulseB"></button>
+            <button className="btn btn-dark m-2 pulseB"></button>
+          </div>
           <OpenAILogo className="ms-3 me-3 pulse" />
         </div>
+      )}
+
+      {!openAIletter && respond && (
+        <p style={{ textAlign: "center" }}>The letter is loading!</p>
       )}
 
       {respond && (
@@ -123,39 +142,57 @@ function ResultsPage({
       )}
 
       {!respond && sentiment && (
-        <div>
-          {responseHTML}
-          <div className="col">
-            <button onClick={handleAgree} className="btn btn-secondary">
-              AGREE
-            </button>
-            <button onClick={handleAgree} className="btn btn-danger m-2">
-              DISAGREE
-            </button>
+        <div className="responseWrapper">
+          <div
+            className="d-flex row sentiment-border "
+            style={{ textAlign: "center" }}
+          >
+            {responseHTML}
+            <div className="col">
+              <button
+                onClick={handleAgree}
+                className="btn emoji btn-light btn-lg"
+                value="Agree"
+              >
+                <span
+                  role="img"
+                  aria-label="grinning face with smiling eyes"
+                  className="react-emojis"
+                  style={{ lineHeight: 1 }}
+                >
+                  😄
+                </span>
+              </button>
+              <button
+                value="Disagree"
+                onClick={handleDisagree}
+                className="btn emoji btn-light"
+              >
+                <span
+                  role="img"
+                  aria-label="worried face"
+                  className="react-emojis"
+                >
+                  😟
+                </span>
+              </button>
+            </div>
           </div>
 
-          <div className="col">
-            Start a new search:
-            <button
-              onClick={() => {
-                setSearchResults(false);
-              }}
-              className="btn btn-white m-1"
-            >
-              <img src={undoArrow} style={{ width: 34, height: 34 }}></img>
-            </button>
-          </div>
-
-          <div className="container mt-5 mb-3">
+          <div className="container mt-5">
             {abstractsHTML}
-            <div className="card m-3" style={{ width: "100%" }}>
+
+            <div
+              className="card m-3"
+              style={{ width: "100%", textAlign: "center" }}
+            >
               <div className="card-body">
                 <a href="https://developer.nytimes.com" target="_blank">
                   <img src={nytAPI}></img>
                 </a>
                 <p className="card-text">
-                  The New York Times does not endorse or have any affiliation
-                  with this project.
+                  The New York Times does not have any affiliation with this
+                  project.
                 </p>
               </div>
             </div>

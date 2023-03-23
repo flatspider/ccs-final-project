@@ -5,7 +5,7 @@
 }
 
 .App {
-  text-align: center;
+  /*text-align: center;*/
 }
 
 .App-logo {
@@ -290,8 +290,28 @@ Note: Beware of modifying this element as it can break the animations - you shou
   width: 36%;
 }
 
+.moving-buttons button {
+  animation: pulseB 4s infinite;
+}
+
+.moving-buttons button:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.moving-buttons button:nth-child(2) {
+  animation-delay: 333ms;
+}
+
+.moving-buttons button:nth-child(3) {
+  animation-delay: 666ms;
+}
+
+.moving-buttons button:nth-child(4) {
+  animation-delay: 997ms;
+}
+
 .pulse {
-  animation: pulse 2s infinite;
+  animation: pulse 4s infinite;
 }
 
 @keyframes pulse {
@@ -304,4 +324,30 @@ Note: Beware of modifying this element as it can break the animations - you shou
   100% {
     transform: scale(1);
   }
+}
+
+@keyframes pulseB {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.6);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.emoji {
+  font-size: 6em;
+  height: 130px;
+  margin-right: 10px;
+  border-radius: 20px;
+  vertical-align: middle;
+}
+
+.sentiment-border {
+  border: solid black 5px;
+
+  border-radius: 20px;
 }

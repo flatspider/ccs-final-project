@@ -1,6 +1,6 @@
 function LogOut() {
   return (
-    <p>
+    <p style={{ textAlign: "center", marginTop: "10%" }}>
       You have been logged out. Thanks for using Editori. Please close this
       page.
     </p>
