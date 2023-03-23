@@ -112,6 +112,13 @@ function SearchPage() {
     setSearch("");
   };
 
+  const handleKeyDown = (event) => {
+    console.log(event.key);
+    if (event.key === "Enter") {
+      handleSearch(event);
+    }
+  };
+
   let abstractsHTML = <p>&nbsp;</p>;
   let sentimentHTML = <p>&nbsp;</p>;
 
@@ -177,12 +184,12 @@ function SearchPage() {
         <>
           <div className="container mt-5">
             <div className="row">
-              <div className="col-3 ">
+              <div className="col-3 " style={{ marginTop: 44 }}>
                 <h1>What does </h1>
               </div>
               <div className="row justify-content-center my-4">
                 <div className="col-12 d-flex justify-content-center">
-                  <NYtimes className="w-75" />
+                  <NYtimes className="w-100" />
                 </div>
               </div>
               <div className="col-12 d-flex justify-content-end">
@@ -192,6 +199,7 @@ function SearchPage() {
                     className="input"
                     type="search"
                     placeholder={placeholders[cycle]}
+                    onKeyDown={handleKeyDown}
                     size="20"
                     value={search}
                     onChange={(event) => setSearch(event.target.value)}
@@ -200,17 +208,6 @@ function SearchPage() {
                   ></input>{" "}
                   ?
                 </h1>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-11 text-end mt-4">
-                <button
-                  className="btn btn-dark btn-xl rounded-pill"
-                  onClick={handleSearch}
-                >
-                  Find Out
-                </button>
               </div>
             </div>
           </div>
