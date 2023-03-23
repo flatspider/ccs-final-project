@@ -16,6 +16,14 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = '__all__'
 
+    def update(self, instance, validated_data):
+        # Update the profile image if it is included in the validated data
+        if 'avatar' in validated_data:
+            instance.avatar = validated_data['avatar']
+            instance.save()
+
+        return super(ProfileSerializer, self).update(instance, validated_data)
+
 
 class CustomRegisterSerializer(RegisterSerializer):
     display_name = serializers.CharField()

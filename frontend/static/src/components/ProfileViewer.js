@@ -64,7 +64,7 @@ function ProfileViewer() {
     formData.append("last_name", profile.last_name);
 
     const options = {
-      method: "POST",
+      method: "PUT",
       headers: {
         "X-CSRFToken": Cookies.get("csrftoken"),
         // Sending an image.
@@ -72,7 +72,10 @@ function ProfileViewer() {
       body: formData,
     };
 
-    const response = await fetch("/api_v1/profile/", options);
+    const response = await fetch(
+      "/api_v1/profile/detail/" + profile.id + "/",
+      options
+    );
     const data = await response.json();
     console.log({ data });
   };

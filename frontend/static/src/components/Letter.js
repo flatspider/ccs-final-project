@@ -69,10 +69,7 @@ function Letter(props) {
     <>
       {copyAIletter && (
         <div className="col-4 mx-auto" style={{ textAlign: "center" }}>
-          <h1>
-            Your letter regarding the {fSentiment} position of the NYT on{" "}
-            {props.openAIdata.search_term}:
-          </h1>
+          <h1>Your letter to the NYT about {props.openAIdata.search_term}:</h1>
           <div className="d-flex justify-content-center">
             <form onSubmit={handleSubmit}>
               <textarea
@@ -80,16 +77,19 @@ function Letter(props) {
                 id="text"
                 name="text"
                 placeholder="Your letter from OpenAI is loading..."
-                rows="20"
+                rows="19"
                 cols="61"
                 value={copyAIletter}
                 onChange={(e) => {
                   setCopyAIletter(e.target.value);
                 }}
               ></textarea>
-              <div className="m-4" style={{ textAlign: "center" }}>
-                <button className="btn btn-dark" type="submit">
+              <div className="m-4 col-12" style={{ textAlign: "center" }}>
+                <button className="btn col-4 btn-dark mx-2" type="submit">
                   Save to Drafts
+                </button>
+                <button className="btn col-4 btn-dark mx-1" type="submit">
+                  New Search
                 </button>
               </div>
             </form>

@@ -72,7 +72,7 @@ function ResultsPage({
   useEffect(() => {
     if (firstRenderRef.current) {
       console.log("Block only runs AFTER initial render");
-      //handleAgree();
+      handleAgree();
     } else {
       firstRenderRef.current = true;
     }
