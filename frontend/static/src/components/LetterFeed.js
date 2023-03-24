@@ -4,10 +4,33 @@ import UpVoteArrow from "./Icons/UpVoteArrow";
 import DownVoteArrow from "./Icons/DownVoteArrow";
 
 function LetterFeed() {
-  const [feedLetters, setFeedLetters] = useState([]);
+  const [feedLetters, setFeedLetters] = useState("");
+  const [votedLetters, setVotedLetters] = useState([]);
 
   const handleError = (err) => {
     console.warn("error!");
+  };
+
+  const handleVote = (index, value) => {
+    // Check if the letter has already been voted on
+    if (votedLetters.includes(feedLetters[index].id)) {
+      alert("You've already voted on this letter!");
+      return;
+    }
+
+    // How do I determine whether it is a plus or a minus? If id of button = up
+    // Or if id of button = down
+
+    setFeedLetters((prevState) => {
+      const updatedLetters = [...prevState];
+      updatedLetters[index] = {
+        ...prevState[index],
+        votes: prevState[index].votes + parseInt(value),
+      };
+      return updatedLetters;
+    });
+
+    setVotedLetters((prevState) => [...prevState, feedLetters[index].id]);
   };
 
   useEffect(() => {
@@ -35,7 +58,9 @@ function LetterFeed() {
     getLetterFeed();
   }, []);
 
-  let feedLetterListHTML = <p>CURRENTLY LOADING</p>;
+  let feedLetterListHTML = (
+    <p className="col-12 fs-2 text-center">Loading feed!</p>
+  );
 
   if (!feedLetters) {
     console.log("loading");
@@ -48,38 +73,28 @@ function LetterFeed() {
         </h5>
         <div className="card-body">
           <p className="card-text fs-4">{letter.text}</p>
-          <p className="card-text">{letter.author_name}</p>
+          <p className="card-text fs-4">Written by: {letter.author_name}</p>
           <div className="d-flex justify-content-end fs-1">
             <button
-              href="#"
-              onClick={() => {
-                setFeedLetters((prevState) => {
-                  const updatedLetters = [...prevState];
-                  updatedLetters[index] = {
-                    ...prevState[index],
-                    votes: prevState[index].votes - 1,
-                  };
-                  return updatedLetters;
-                });
+              id="down"
+              value="-1"
+              onClick={(e) => {
+                handleVote(index, e.currentTarget.value);
               }}
               className="btn btn-dark m-2"
+              disabled={votedLetters.includes(letter.id)}
             >
               <DownVoteArrow />
             </button>
             {letter.votes}
             <button
-              href="#"
-              onClick={() => {
-                setFeedLetters((prevState) => {
-                  const updatedLetters = [...prevState];
-                  updatedLetters[index] = {
-                    ...prevState[index],
-                    votes: prevState[index].votes + 1,
-                  };
-                  return updatedLetters;
-                });
+              id="up"
+              value="1"
+              onClick={(e) => {
+                handleVote(index, e.currentTarget.value);
               }}
               className="btn btn-dark m-2"
+              disabled={votedLetters.includes(letter.id)}
             >
               <UpVoteArrow />
             </button>
