@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import UpVoteArrow from "./Icons/UpVoteArrow";
+import DownVoteArrow from "./Icons/DownVoteArrow";
 
 function LetterFeed() {
   const [feedLetters, setFeedLetters] = useState("");
@@ -47,13 +49,13 @@ function LetterFeed() {
         <div className="card-body">
           <p className="card-text fs-4">{letter.text}</p>
           <p className="card-text">{letter.author_name}</p>
-          <a href="#" className="btn btn-primary m-2">
-            ⬆️
-          </a>
+          <button href="#" className="btn btn-dark m-2">
+            <DownVoteArrow />
+          </button>
           {letter.votes}
-          <a href="#" className="btn btn-sm btn-danger">
-            ⬇️
-          </a>
+          <button href="#" className="btn btn-dark m-2">
+            <UpVoteArrow />
+          </button>
         </div>
       </div>
     ));
