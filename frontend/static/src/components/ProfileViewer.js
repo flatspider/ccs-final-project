@@ -6,7 +6,7 @@ function ProfileViewer() {
   const [preview, setPreview] = useState("");
   const [profile, setCurrentProfile] = useState({
     display_name: "loading",
-    avatar: null,
+    avatar: "loading",
     first_name: "loading",
     last_name: "loading",
     user: "loading",
