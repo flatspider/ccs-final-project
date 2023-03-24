@@ -40,14 +40,12 @@ function LetterFeed() {
   } else {
     // Map the letters. Search term goes to the group item heading object.
     feedLetterListHTML = feedLetters.map((letter, index) => (
-      <div key={letter.id} className="card w-75 m-2">
-        <h5 className="card-header">
-          {letter.search_term}:
-          {letter.published ? "Published" : "Not Published"}
+      <div key={letter.id} className="card w-75 m-3 shadow ">
+        <h5 className="card-header bg-white fw-bold">
+          Regarding: {letter.search_term}
         </h5>
         <div className="card-body">
-          <h5 className="card-title">{letter.text.slice(0, 30)}t</h5>
-          <p className="card-text">{letter.text}</p>
+          <p className="card-text fs-4">{letter.text}</p>
           <p className="card-text">{letter.author_name}</p>
           <a href="#" className="btn btn-primary m-2">
             ⬆️

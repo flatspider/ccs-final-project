@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
 function DraftLetters() {
-  const [draftletters, setDraftletters] = useState("");
+  const [draftletters, setDraftletters] = useState("Test");
   const [displayLetter, setDisplayLetter] = useState(0);
   const [save, setSave] = useState(false);
   const [updateText, setUpdateText] = useState("");
-  const [deleteLetter, setDeleteLetter] = useState(0);
+  //const [deleteLetter, setDeleteLetter] = useState(0);
   const [activeLink, setActiveLink] = useState(null);
   const [emptyDrafts, setEmptyDrafts] = useState(true);
+
+  // Empty drafts defaults to true. Needs response AND length of 0.
 
   const handleError = (err) => {
     console.warn("error!");
@@ -69,7 +71,7 @@ function DraftLetters() {
         >
           {letter.search_term}
         </h4>
-        <p className="list-group-item-text">{letter.text.slice(0, 30)}</p>
+
         <span className="label">
           {letter.published ? "Published" : "Not Published"}
         </span>
@@ -180,7 +182,7 @@ function DraftLetters() {
     };
     deleteThisLetter();
     // Update the current state of the value text in the browser.
-    setDisplayLetter(0);
+    //setDraftletters({ ...draftletters[displayLetter], text: "Deleted!" });
   };
 
   const mailTo = () => {
@@ -194,13 +196,16 @@ function DraftLetters() {
     window.location = mailURL;
   };
 
+  //TO-DO: Provide third branch of conditional rendering to show loading for >0 letter drafts.
+
   return (
     <>
       <link
         href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
         rel="stylesheet"
       ></link>
-      {emptyDrafts && (
+
+      {emptyDrafts && draftletters.length === 0 && (
         <h3 style={{ textAlign: "center" }}>
           Hit the search bar!<br></br>You do not have a single draft to view.
         </h3>

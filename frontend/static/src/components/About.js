@@ -2,7 +2,9 @@ function About() {
   return (
     <>
       <div className="col-6 mx-auto">
-        <h1 style={{ marginBottom: 7 }}>How do you engineer a prompt?</h1>
+        <h1 style={{ marginBottom: 7 }}>
+          How do you get a language model to listen?
+        </h1>
         <small style={{ float: "left", color: "#888" }}>2023 Mar 24 </small>
         <small style={{ float: "left", color: "#888" }}></small>
         <br></br>

@@ -123,7 +123,11 @@ function ResultsPage({
         </div>
       )}
 
-      {!openAIletter && respond && <OpenAILogo />}
+      {!openAIletter && respond && (
+        <div className="d-flex justify-content-center align-items-center">
+          <OpenAILogo className="rotate" />
+        </div>
+      )}
 
       {respond && (
         <Letter

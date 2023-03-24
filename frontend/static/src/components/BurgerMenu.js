@@ -14,6 +14,7 @@ function BurgerMenu() {
     console.warn(err, "error!");
   };
 
+  // Check for current user
   useEffect(() => {
     const currentUser = async () => {
       try {
@@ -61,6 +62,7 @@ function BurgerMenu() {
     setMenuOpen(false);
   };
 
+  // Push the burger menu off screen
   const handleOnClose = () => {
     setMenuOpen(false);
   };

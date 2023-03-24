@@ -8,10 +8,7 @@ function ArticleResults(props) {
               <h5 className="card-title text-left">
                 {props.article["headline"]["main"]}{" "}
               </h5>
-              <h6 className="card-subtitle mb-2 text-muted">
-                Article Abstract:
-              </h6>
-              <p className="card-text">{props.article["abstract"]}</p>
+              <p className="card-text">Abstract: {props.article["abstract"]}</p>
               <a
                 style={{ color: "blue", alignItems: "end" }}
                 href={props.article["web_url"]}
