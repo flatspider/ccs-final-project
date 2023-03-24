@@ -28,7 +28,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class CustomRegisterSerializer(RegisterSerializer):
     display_name = serializers.CharField()
 
-    # Does this function need to be placed in a class CustomRegisterSerializer?
+    # Creates the custom sign up flow. Allows the display name and avatar to be set simultaneously at registration
     def custom_signup(self, request, user):
         display_name = self.validated_data.get('display_name')
         avatar = self.validated_data.get('avatar')
@@ -38,5 +38,4 @@ class CustomRegisterSerializer(RegisterSerializer):
             user=user,
             display_name=display_name,
             avatar=avatar,
-            # Add any additional fields you want to include in the profile here
         )

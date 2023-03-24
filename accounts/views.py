@@ -10,7 +10,6 @@ class ProfileCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ProfileSerializer
 
     # This logic below tells Django back end to save the profile to the current user
-
     def perform_create(self, serializer):
         # serializer.save(user=get_object_or_404(User, id=1))
         serializer.save(user=self.request.user)

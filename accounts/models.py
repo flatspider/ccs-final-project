@@ -6,8 +6,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-# Create your models here.
-
 # Inheriting from the Abstract User
 class CustomUser(AbstractUser):
     pass
@@ -19,8 +17,6 @@ class Profile(models.Model):
     avatar = models.ImageField(
         upload_to="profiles/", default="defaultAvatar.jpeg")
     display_name = models.CharField(max_length=255)
-
-    # Self.user will return the entire user structure. Drill down to self.user.username
 
     def __str__(self):
         return self.user.username
