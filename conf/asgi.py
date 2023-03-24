@@ -7,6 +7,10 @@ For more information on this file, see
 https://docs.djangoproject.com/en/4.1/howto/deployment/asgi/
 """
 
+
+# This file is for the Asynchronous Server Gateway Interface.
+# We implemented a Web Server Gateway Interface via Gunicorn.
+
 import os
 
 from django.core.asgi import get_asgi_application

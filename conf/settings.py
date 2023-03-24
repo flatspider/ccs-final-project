@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'dj_rest_auth',
 
     # local
-
     'accounts.apps.AccountsConfig',
     'frontend.apps.FrontendConfig',
     'api.apps.ApiConfig',
@@ -65,7 +64,7 @@ INSTALLED_APPS = [
 
 
 # https://www.django-rest-framework.org/api-guide/permissions/
-# The default is to allow in. We are locking down, and then loosening via custom permission classes.
+# The default is to allow all. Set permission classes to require authentication. Can loosen via custom permission classes.
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -76,6 +75,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
 }
+
+
+# Middleware provides a framework of hooks to process request/responses globally.
+# https://docs.djangoproject.com/en/4.1/topics/http/middleware/
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -106,10 +109,13 @@ TEMPLATES = [
     },
 ]
 
+# Web Server Gateway Interface
+# https://docs.djangoproject.com/en/4.1/howto/deployment/wsgi/
+
 WSGI_APPLICATION = 'conf.wsgi.application'
 
 
-# Database
+# Database. Checks if database url is available. If not, default to local server.
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
@@ -182,7 +188,7 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.1/topics/email/
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# SITE_ID
+# SITE_ID. Identify which database this is attached to.
 # https://docs.djangoproject.com/en/4.1/ref/settings/#site-id
 SITE_ID = 1
 
@@ -191,12 +197,13 @@ SITE_ID = 1
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+# Allows for the input fields during registration to be personalized
 # https://django-rest-auth.readthedocs.io/en/latest/configuration.html
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer'
 }
 
-
+# Whitenoise serves static files and compresses/hashes them for storage
 # https://whitenoise.evans.io/en/stable/django.html
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

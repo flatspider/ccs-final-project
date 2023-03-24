@@ -30,4 +30,4 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-# Static files added via https://docs.djangoproject.com/en/4.1/howto/static-files/
+# Static files (images, etc.) added via https://docs.djangoproject.com/en/4.1/howto/static-files/
