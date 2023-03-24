@@ -235,7 +235,11 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 
 .list-message .list-group-item.active p {
-  color: #999999 !important;
+  color: black !important;
+}
+
+.list-group-item.active {
+  color: black;
 }
 
 .list-message .list-group-item.active {
@@ -305,6 +309,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
   animation: pulse 4s infinite;
 }
 
+.rotate {
+  animation: rotate 1s infinite;
+}
+
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -326,6 +334,18 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: srotate(360deg);
   }
 }
 
@@ -363,4 +383,8 @@ Note: Beware of modifying this element as it can break the animations - you shou
   color: #fefffe;
   background-color: #202020;
   border-radius: 20px;
+}
+
+textarea {
+  border: solid red 3px;
 }

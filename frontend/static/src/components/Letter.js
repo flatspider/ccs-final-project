@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import OpenAILogo from "./OpenAILogo";
 
 function Letter(props) {
   const [copyAIletter, setCopyAIletter] = useState("");
@@ -59,36 +58,38 @@ function Letter(props) {
     window.location.href = "/letters/";
   };
 
-  const fSentiment = props.sentiment
-    .toString()
-    .toLowerCase()
-    .slice(0, 8)
-    .replace(".", "");
-
   return (
     <>
       {copyAIletter && (
-        <div className="col-4 mx-auto" style={{ textAlign: "center" }}>
+        <div className="col-6 mx-auto" style={{ textAlign: "center" }}>
           <h1>Your letter to the NYT about {props.openAIdata.search_term}:</h1>
           <div className="d-flex justify-content-center">
             <form onSubmit={handleSubmit}>
               <textarea
-                className="form-control initial-letter"
+                className="form-control initial-letter shadow-lg"
                 id="text"
                 name="text"
                 placeholder="Your letter from OpenAI is loading..."
                 rows="19"
-                cols="61"
+                cols="100"
                 value={copyAIletter}
                 onChange={(e) => {
                   setCopyAIletter(e.target.value);
                 }}
               ></textarea>
-              <div className="m-4 col-12" style={{ textAlign: "center" }}>
-                <button className="btn col-4 btn-dark mx-2" type="submit">
+              <div className="" style={{ textAlign: "center" }}>
+                <button
+                  className="btn col-4 m-4 btn-dark rounded-pill"
+                  type="submit"
+                >
                   Save to Drafts
                 </button>
-                <button className="btn col-4 btn-dark mx-1" type="submit">
+                <button
+                  className="btn col-4 m-4 btn-dark rounded-pill"
+                  onClick={() => {
+                    window.location.href = "/";
+                  }}
+                >
                   New Search
                 </button>
               </div>
