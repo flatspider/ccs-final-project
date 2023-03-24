@@ -14,6 +14,4 @@
 
 7. As a user, I want to be able to vote for/against popular letters.
 
-8. As a user, I want to see where I rank on the leaderboard of which users have sent the most letters.
-
-9. As an admin, I want to be able to delete letters from the public feed.
+8. As an admin, I want to be able to delete letters from the public feed.
