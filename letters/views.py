@@ -9,13 +9,13 @@ from .serializers import LetterSerializer, ArticleSerializer
 import openai
 
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 import os
 
 
 # from django.contrib.auth.models import User
 
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 
 # Create your views here.
 
@@ -69,7 +69,9 @@ class ArticleCreationAPIView(generics.ListCreateAPIView):
 
 
 # This function is passed the search term, the NYT opinion, and the users sentiment towards that opinion.
+
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def initial_letter_template(request):
     openai.api_key = OPEN_AI_API_KEY
     search_term = request.data['search_term']

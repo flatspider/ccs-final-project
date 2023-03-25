@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 import requests
 import openai
 import json
@@ -23,6 +24,7 @@ OPEN_AI_API_KEY = os.environ['SECRET_OPEN_AI_API_KEY']
 
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def send_search_nyt(request):
     data = request.data
     search_term = data.get('search')
@@ -44,6 +46,7 @@ def send_search_nyt(request):
 
 # This function is passed the cleaned up abstract headline data as a response from the front end.
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def sentiment_check_nyt(request):
     openai.api_key = OPEN_AI_API_KEY
     headlines = request.data['abstract']
