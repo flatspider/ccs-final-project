@@ -198,7 +198,7 @@ function SearchPage() {
                 <h1 className="text-end">
                   think about{" "}
                   <input
-                    className="input"
+                    className="input searchBox"
                     type="search"
                     placeholder={placeholders[cycle]}
                     onKeyDown={handleKeyDown}
