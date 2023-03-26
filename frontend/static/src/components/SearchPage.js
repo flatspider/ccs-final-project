@@ -174,10 +174,12 @@ function SearchPage() {
     ));
   }
 
+  /*
   useEffect(() => {
     createArticle();
   }, [NYTdata]);
 
+*/
   return (
     <div>
       {!searchResults && (
