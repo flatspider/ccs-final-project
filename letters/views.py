@@ -63,7 +63,7 @@ class LetterFeedAPIView(generics.ListCreateAPIView):
 
 
 class ArticleCreationAPIView(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [AllowAny]
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
 
