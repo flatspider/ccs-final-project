@@ -150,6 +150,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
     width: 40%;
   }
 
+  .bm-menu-wrap {
+    width: 200px;
+  }
+
   .bm-burger-button {
     position: fixed;
     right: 0px;

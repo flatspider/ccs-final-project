@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 
 // TO DO: Have log in trigger re-render of hamburger menu options.
 // Possibly automatically route you to drafts?
@@ -8,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 function LogIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   // No account, then offer the registration button.
   const handleError = (err) => {
@@ -59,12 +57,12 @@ function LogIn() {
             <h5 className="card-title text-center">Log In</h5>
             <form className="form-signin" onSubmit={handleSubmit}>
               <hr></hr>
-              <div className="form-label-group">
+              <div aria-label="Username" className="form-label-group">
                 <input
                   type="text"
-                  id="login"
+                  id="Username"
                   className="form-control"
-                  name="login"
+                  name="Username"
                   placeholder="Username"
                   required
                   autoFocus
@@ -76,7 +74,7 @@ function LogIn() {
                 ></input>
               </div>
 
-              <div className="form-label-group mt-2">
+              <div aria-label="Password" className="form-label-group mt-2">
                 <input
                   type="password"
                   id="id_password"
