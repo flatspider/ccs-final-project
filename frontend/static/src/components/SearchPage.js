@@ -113,7 +113,6 @@ function SearchPage() {
   };
 
   const handleKeyDown = (event) => {
-    console.log(event.key);
     if (event.key === "Enter") {
       handleSearch(event);
     }
