@@ -4,7 +4,7 @@ Search any topic in the initial landing page and learn the New York Times attitu
 
 ## Tech Stack
 
-This web application uses the Django Web Framework with a React front end. The New York Times provides an API that allows for headline and article search. The OpenAI API provides sentiment analysis of the headlines and article content. The banner font League Spartan is from https://www.theleagueofmoveabletype.com/league-spartan. The hamburger menu uses the react-burger-menu library.
+This web application uses the Django Web Framework with a React front end. The New York Times provides an API that allows for headline and article search. The OpenAI API provides sentiment analysis of the headlines and article content. The banner font League Spartan is from [The League of Moveable Type](https://www.theleagueofmoveabletype.com/league-spartan). The hamburger menu uses the react-burger-menu library. All SVGs were converted to React components by [transform.tools](https://transform.tools/).
 
 ## Motivation
 
