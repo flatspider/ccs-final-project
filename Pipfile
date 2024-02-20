@@ -13,7 +13,7 @@ djangorestframework = "~=3.14.0"
 dj-rest-auth = "~=2.2.8"
 django-allauth = "~=0.52.0"
 pillow = "~=9.4.0"
-openai = "~=0.27.1"
+openai = "~=1.12.0"
 
 [dev-packages]
 autopep8 = "*"

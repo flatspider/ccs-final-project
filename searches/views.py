@@ -53,7 +53,9 @@ def sentiment_check_nyt(request):
     search_term = request.data['search_term']
 
     try:
-        ai_response = openai.ChatCompletion.create(
+
+        
+        ai_response = openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system",
@@ -68,9 +70,9 @@ def sentiment_check_nyt(request):
             ],
 
         )
-    except openai.error.APIError as e:
+    except openai.APIError as e:
         print(f"OpenAI API returned an API Error: {e}")
 
-    text = ai_response["choices"][0]["message"]["content"]
+    text = ai_response.choices[0].message.content
     data = {'text': text}
     return Response(data)
