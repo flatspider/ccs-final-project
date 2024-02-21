@@ -10,13 +10,14 @@ import DraftLetters from "./components/DraftLetters";
 import ProfileViewer from "./components/ProfileViewer";
 import LogOut from "./components/LogOut";
 import NotFound404 from "./components/NotFound404";
+import OpenAILogo from "./components/OpenAILogo";
 
 function App() {
   return (
     <div className="App">
       <BurgerMenu />
       <Link
-        to="/"
+        to="search/"
         className="nav-bar"
         style={{ color: "#23201f", textDecoration: "none" }}
       >
@@ -25,6 +26,7 @@ function App() {
       <div className="nav-gap"></div>
       <Routes>
         <Route path="/" element={<SearchPage />} />
+        <Route path="search/" element={<SearchPage />} />
         <Route path="register/" element={<RegisterForm />} />
         <Route path="login/" element={<LogIn />} />
         <Route path="about/" element={<About />} />

@@ -18,6 +18,8 @@ function SearchPage() {
     abstract: "",
   });
 
+  // When this component is rendered via link...reset the state on everything
+
   const handleError = (err) => {
     console.warn(err, "error!");
   };
@@ -42,9 +44,10 @@ function SearchPage() {
     return () => clearInterval(intervalId);
   }, []);
 
+  // What is the proper way to trigger this function?
   useEffect(() => {
     const fetchSentiment = async () => {
-      const options2 = {
+      const sentimentPOST = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,25 +58,24 @@ function SearchPage() {
 
       const responseAI = await fetch(
         `/api_v1/search/sentiment/`,
-        options2
+        sentimentPOST
       ).catch(handleError);
 
       if (!responseAI.ok) {
         alert(
-          `Sentiment analysis for ${openAIdata.search_term} not completed.`
+          `Sentiment analysis for ${openAIdata.search_term} was incomplete.`
         );
         setFireOnce(false);
-
         throw new Error("Network response was not ok");
       }
 
       const dataAI = await responseAI.json();
-      // Set the cookie Authorization the data token:
 
       setSentiment(dataAI.text);
     };
 
-    // This is being run over and over again. May need to add boolean.
+    // Fires once with boolean.
+    // Would there ever be a search term without an abstract?
     if (openAIdata.search_term && openAIdata.abstract && fireOnce) {
       fetchSentiment();
     }
@@ -112,8 +114,9 @@ function SearchPage() {
     setSearch("");
   };
 
+  // Check for empty search bar
   const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && search.trim() != "") {
       handleSearch(event);
     }
   };
