@@ -168,6 +168,14 @@ Note: Beware of modifying this element as it can break the animations - you shou
   .searchBox {
     width: 140px;
   }
+
+  .emoji {
+    font-size: 6em;
+    height: 130px;
+    margin-right: 10px;
+    border-radius: 20px;
+    vertical-align: middle;
+  }
 }
 
 /* ========================================================================
