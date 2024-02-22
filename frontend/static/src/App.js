@@ -10,7 +10,7 @@ import DraftLetters from "./components/DraftLetters";
 import ProfileViewer from "./components/ProfileViewer";
 import LogOut from "./components/LogOut";
 import NotFound404 from "./components/NotFound404";
-import OpenAILogo from "./components/OpenAILogo";
+import SearchForm from "./components/SearchBox";
 
 function App() {
   return (
@@ -27,6 +27,8 @@ function App() {
       <Routes>
         <Route path="/" element={<SearchPage />} />
         <Route path="search/" element={<SearchPage />} />
+        <Route path="searchrefactor/" element={<SearchPage />} />
+
         <Route path="register/" element={<RegisterForm />} />
         <Route path="login/" element={<LogIn />} />
         <Route path="about/" element={<About />} />

@@ -4,15 +4,16 @@ import Cookies from "js-cookie";
 import ArticleResults from "./ArticleResults";
 import ResultsPage from "./ResultsPage";
 import moment from "moment";
+import SearchBox from "./SearchBox";
 
 function SearchPage() {
-  const [search, setSearch] = useState("");
+  //const [search, setSearch] = useState("");
   const [NYTdata, setNYTdata] = useState("");
   const [fireOnce, setFireOnce] = useState(true);
   const [sentiment, setSentiment] = useState("");
   const [searchResults, setSearchResults] = useState(false);
   const [newArticle, setNewArticle] = useState("");
-  const [cycle, setNextCycle] = useState(0);
+  //const [cycle, setNextCycle] = useState(0);
   const [openAIdata, setOpenAIdata] = useState({
     search_term: "",
     abstract: "",
@@ -23,26 +24,6 @@ function SearchPage() {
   const handleError = (err) => {
     console.warn(err, "error!");
   };
-
-  const placeholders = [
-    "koala bears...",
-    "Greenville, SC...",
-    "rubber ducks...",
-    "space exploration...",
-    "programming...",
-    "bootcamps...",
-  ];
-
-  // Establishes setInterval method that fires every 1500. Cycles through the remainder over the length of the array.
-  // When the component unmounts, it stops the function.
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setNextCycle((prevIndex) => (prevIndex + 1) % placeholders.length);
-    }, 1500);
-
-    return () => clearInterval(intervalId);
-  }, []);
 
   // What is the proper way to trigger this function?
   useEffect(() => {
@@ -81,13 +62,12 @@ function SearchPage() {
     }
   }, [openAIdata]);
 
-  const handleSearch = async (event) => {
-    event.preventDefault();
+  const handleSearch = async (searchTerm) => {
     setSearchResults(true);
 
     // The search useState variable is being set by the input box on the website.
     const searchInput = {
-      search,
+      search: searchTerm,
     };
 
     const options = {
@@ -102,7 +82,7 @@ function SearchPage() {
     const response = await fetch(`/api_v1/search/`, options).catch(handleError);
 
     if (!response.ok) {
-      alert(`Search for ${search} not completed.`);
+      alert(`Search for ${searchTerm} not completed.`);
       setSearchResults(false);
       throw new Error("Network response was not ok");
     }
@@ -111,14 +91,6 @@ function SearchPage() {
     const abstracts = data.response.docs.map((doc) => doc.abstract);
     setNYTdata(data);
     setOpenAIdata({ search_term: searchInput.search, abstract: abstracts });
-    setSearch("");
-  };
-
-  // Check for empty search bar
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter" && search.trim() != "") {
-      handleSearch(event);
-    }
   };
 
   let abstractsHTML = <p>&nbsp;</p>;
@@ -197,21 +169,7 @@ function SearchPage() {
                 </div>
               </div>
               <div className="col-12 d-flex justify-content-end">
-                <h1 className="text-end">
-                  think about{" "}
-                  <input
-                    className="input searchBox"
-                    type="search"
-                    placeholder={placeholders[cycle]}
-                    onKeyDown={handleKeyDown}
-                    size="20"
-                    value={search}
-                    onChange={(event) => setSearch(event.target.value)}
-                    autoFocus
-                    required
-                  ></input>{" "}
-                  ?
-                </h1>
+                <SearchBox onSubmit={handleSearch} />
               </div>
             </div>
           </div>
