@@ -7,6 +7,7 @@ function BurgerMenu() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuWidth, setMenuWidth] = useState("30%");
 
   // Implemented using react-burger-menu
 
@@ -67,6 +68,23 @@ function BurgerMenu() {
     setMenuOpen(false);
   };
 
+  useEffect(() => {
+    // Check for window width
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setMenuWidth("80%");
+      } else {
+        setMenuWidth("30%");
+      }
+    };
+
+    // When resized, call function
+    window.addEventListener("resize", handleResize);
+
+    // Dispose of listener
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       <Menu
@@ -76,7 +94,7 @@ function BurgerMenu() {
         onOpen={() => {
           setMenuOpen(true);
         }}
-        width={"30%"}
+        width={menuWidth}
       >
         {loggedIn && (
           <>
