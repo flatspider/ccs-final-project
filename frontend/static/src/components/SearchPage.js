@@ -19,7 +19,18 @@ function SearchPage() {
     abstract: "",
   });
 
-  // When this component is rendered via link...reset the state on everything
+  // Need to create resetState function and pass it to letters component
+  const resetState = () => {
+    setNYTdata("");
+    setFireOnce(true);
+    setSentiment("");
+    setSearchResults(false);
+    setNewArticle("");
+    setOpenAIdata({
+      search_term: "",
+      abstract: "",
+    });
+  };
 
   const handleError = (err) => {
     console.warn(err, "error!");
@@ -185,6 +196,7 @@ function SearchPage() {
           openAIdata={openAIdata}
           sentimentHTML={sentimentHTML}
           abstractsHTML={abstractsHTML}
+          resetState={resetState}
         />
       )}
     </div>

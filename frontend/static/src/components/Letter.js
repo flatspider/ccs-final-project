@@ -7,6 +7,9 @@ function Letter(props) {
   const [newLetter, setNewLetter] = useState({ text: "" });
   const [publishToFeed, setPublishToFeed] = useState(false);
 
+  // Destructure the function from props
+  const { resetSearch } = props;
+
   const handleError = (err) => {
     console.warn("error!");
   };
@@ -86,9 +89,7 @@ function Letter(props) {
                 </button>
                 <button
                   className="btn col-4 m-4 btn-dark rounded-pill"
-                  onClick={() => {
-                    window.location.href = "/";
-                  }}
+                  onClick={resetSearch}
                 >
                   New Search
                 </button>

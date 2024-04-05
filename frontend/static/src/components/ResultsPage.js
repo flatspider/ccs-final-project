@@ -14,6 +14,7 @@ function ResultsPage({
   newArticle,
   searchResults,
   setSearchResults,
+  resetState,
 }) {
   const [respond, setRespond] = useState(false);
   const [openAIletter, setOpenAIletter] = useState("");
@@ -66,7 +67,7 @@ function ResultsPage({
 
   useEffect(() => {
     if (firstRenderRef.current) {
-      console.log("Block only runs AFTER initial render");
+      //console.log("Block only runs AFTER initial render");
       handleAgree();
     } else {
       firstRenderRef.current = true;
@@ -108,6 +109,12 @@ function ResultsPage({
     setOpenAIletter(data.text);
   };
 
+  const resetSearch = (e) => {
+    e.preventDefault();
+    console.log("RESET EVERYTHING");
+    resetState();
+  };
+
   return (
     <>
       {!sentiment && (
@@ -137,6 +144,7 @@ function ResultsPage({
           openAIdata={openAIdata}
           openAIletter={openAIletter}
           setOpenAIletter={setOpenAIletter}
+          resetSearch={resetSearch}
         />
       )}
 
