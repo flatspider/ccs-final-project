@@ -70,6 +70,10 @@ function BurgerMenu() {
 
   useEffect(() => {
     // Check for window width
+    if (window.innerWidth <= 768) {
+      setMenuWidth("80%");
+    }
+
     const handleResize = () => {
       if (window.innerWidth <= 768) {
         setMenuWidth("80%");
