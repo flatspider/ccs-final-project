@@ -13,11 +13,11 @@ function SearchBox({ onSubmit }) {
 
   const placeholders = [
     "koala bears...",
-    "Greenville, SC...",
+    "new york...",
     "rubber ducks...",
-    "space exploration...",
+    "space mining...",
     "programming...",
-    "bootcamps...",
+    "startups...",
   ];
 
   // Establishes setInterval method that fires every 1500. Cycles through the remainder over the length of the array.
@@ -32,15 +32,14 @@ function SearchBox({ onSubmit }) {
   }, []);
 
   return (
-    <div className="col-12 d-flex justify-content-end">
-      <h1 className="text-end">
+    <div>
+      <h1>
         think about{" "}
         <input
           className="input searchBox"
           type="search"
           placeholder={placeholders[cycle]}
           onKeyDown={handleKeyDown}
-          size="20"
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           autoFocus
