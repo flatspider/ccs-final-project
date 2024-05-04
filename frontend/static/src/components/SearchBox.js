@@ -13,7 +13,7 @@ function SearchBox({ onSubmit }) {
 
   const placeholders = [
     "koala bears...",
-    "new york...",
+    "New York...",
     "rubber ducks...",
     "space mining...",
     "programming...",
