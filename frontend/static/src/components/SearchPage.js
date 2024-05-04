@@ -175,10 +175,8 @@ function SearchPage() {
                 <h1>What does </h1>
               </div>
 
-              <div className="col-12 d-flex justify-content-center">
-                <div>
-                  <NYtimes className="my-4" />
-                </div>
+              <div className="col-12 d-flex justify-content-center my-4">
+                <NYtimes />
               </div>
               <div className="col-12 d-flex justify-content-center">
                 <SearchBox onSubmit={handleSearch} />
