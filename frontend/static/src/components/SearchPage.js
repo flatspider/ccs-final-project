@@ -176,7 +176,9 @@ function SearchPage() {
               </div>
 
               <div className="col-12 d-flex justify-content-center">
-                <NYtimes className="my-4" />
+                <div>
+                  <NYtimes className="my-4" />
+                </div>
               </div>
               <div className="col-12 d-flex justify-content-center">
                 <SearchBox onSubmit={handleSearch} />
