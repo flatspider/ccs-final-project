@@ -31,7 +31,7 @@ def send_search_nyt(request):
 
     url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json'
     params = {'q': search_term,
-              'fq': 'source:("The New York Times")', 'api-key': NYT_API_KEY}
+              'fq': 'source.vernacular:("The New York Times")', 'api-key': NYT_API_KEY}
     headers = {'User-Agent': 'Letter Application'}
 
     response = requests.get(url, params=params, headers=headers)
