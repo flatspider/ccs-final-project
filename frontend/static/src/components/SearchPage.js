@@ -19,7 +19,7 @@ function SearchPage() {
     abstract: "",
   });
 
-  // Need to create resetState function and pass it to letters component
+  // Return state to initial settings
   const resetState = () => {
     setNYTdata("");
     setFireOnce(true);
