@@ -43,7 +43,7 @@ function ResultsPage({
       .slice(0, 8)
       .replace(".", "");
     let articleCount =
-      NYTdata["response"]["meta"]["hits"].toLocaleString("en-US");
+      NYTdata["response"]["metadata"]["hits"].toLocaleString("en-US");
     responseHTML = (
       <>
         <p>
@@ -51,7 +51,7 @@ function ResultsPage({
           {openAIdata.search_term}.{" "}
         </p>
         <p>
-          There have been {articleCount} articles published about{" "}
+          There have been more than {articleCount} articles published about{" "}
           {openAIdata.search_term}.
         </p>
         <p>Do you agree with the New York Times?</p>
