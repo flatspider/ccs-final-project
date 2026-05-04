@@ -31,12 +31,17 @@ RAILWAY_PUBLIC_DOMAIN = os.environ.get('RAILWAY_PUBLIC_DOMAIN', '')
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
+    'editoriai.com',
+    'www.editoriai.com',
 ]
 
 if RAILWAY_PUBLIC_DOMAIN:
     ALLOWED_HOSTS.append(RAILWAY_PUBLIC_DOMAIN)
 
-CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = [
+    'https://editoriai.com',
+    'https://www.editoriai.com',
+]
 if RAILWAY_PUBLIC_DOMAIN:
     CSRF_TRUSTED_ORIGINS.append(f'https://{RAILWAY_PUBLIC_DOMAIN}')
 
