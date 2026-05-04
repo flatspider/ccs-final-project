@@ -72,6 +72,7 @@ def sentiment_check_nyt(request):
         )
     except openai.APIError as e:
         print(f"OpenAI API returned an API Error: {e}")
+        return Response({'error': str(e)}, status=502)
 
     text = ai_response.choices[0].message.content
     data = {'text': text}
