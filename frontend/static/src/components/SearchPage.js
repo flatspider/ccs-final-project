@@ -169,13 +169,15 @@ function SearchPage() {
     <div>
       {!searchResults && (
         <>
-          <div className="container mt-md-5">
+          <div className="container pt-4 pt-md-5 mt-md-3">
             <div className="row">
-              <div className="col-12 text-center mb-md-0">
+              <div className="col-12 text-center mb-3 mb-md-4">
                 <h1>What does </h1>
               </div>
 
-              <NYtimes />
+              <div className="col-12 d-flex justify-content-center my-3 my-md-4">
+                <NYtimes className="nyt-lockup" />
+              </div>
 
               <div className="col-12 d-flex justify-content-center">
                 <SearchBox onSubmit={handleSearch} />

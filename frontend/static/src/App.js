@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 import LogIn from "./components/LogIn";
 import "./App.css";
 import RegisterForm from "./components/RegisterForm";
@@ -13,17 +13,26 @@ import NotFound404 from "./components/NotFound404";
 import NewTestComponent from "./components/NewTestComponent";
 
 function App() {
+  const { pathname } = useLocation();
+  const isSearchRoute = ["/", "/search/", "/searchrefactor/"].includes(
+    pathname
+  );
+
   return (
     <div className="App">
       <BurgerMenu />
-      <Link
-        to="search/"
-        className="nav-bar"
-        style={{ color: "#23201f", textDecoration: "none" }}
-      >
-        e&nbsp;d&nbsp;i&nbsp;t&nbsp;o&nbsp;r&nbsp;i
-      </Link>
-      <div className="nav-gap"></div>
+      {!isSearchRoute && (
+        <>
+          <Link
+            to="search/"
+            className="nav-bar"
+            style={{ color: "#23201f", textDecoration: "none" }}
+          >
+            e&nbsp;d&nbsp;i&nbsp;t&nbsp;o&nbsp;r&nbsp;i
+          </Link>
+          <div className="nav-gap"></div>
+        </>
+      )}
       <Routes>
         <Route path="/" element={<SearchPage />} />
         <Route path="search/" element={<SearchPage />} />
