@@ -43,6 +43,25 @@ function SearchBox({ onSubmit }) {
     let timer;
     let lastPos = null;
 
+    const clamp = (dx, dy) => {
+      const el = pillRef.current;
+      if (!el) return null;
+      const rect = el.getBoundingClientRect();
+      const restCx = rect.left - offset.x + rect.width / 2;
+      const restCy = rect.top - offset.y + rect.height / 2;
+      const pad = 24;
+      const halfW = rect.width / 2;
+      const halfH = rect.height / 2;
+      const minX = pad + halfW - restCx;
+      const maxX = window.innerWidth - pad - halfW - restCx;
+      const minY = pad + halfH - restCy;
+      const maxY = window.innerHeight - pad - halfH - restCy;
+      return {
+        x: minX > maxX ? (minX + maxX) / 2 : Math.max(minX, Math.min(maxX, dx)),
+        y: minY > maxY ? (minY + maxY) / 2 : Math.max(minY, Math.min(maxY, dy)),
+      };
+    };
+
     const onMove = (event) => {
       lastPos = { x: event.clientX, y: event.clientY };
       clearTimeout(timer);
@@ -52,25 +71,21 @@ function SearchBox({ onSubmit }) {
         const rect = el.getBoundingClientRect();
         const restCx = rect.left - offset.x + rect.width / 2;
         const restCy = rect.top - offset.y + rect.height / 2;
-        const dx = lastPos.x - restCx;
-        const dy = lastPos.y - restCy;
-        const pad = 24;
-        const halfW = rect.width / 2;
-        const halfH = rect.height / 2;
-        const minX = pad + halfW - restCx;
-        const maxX = window.innerWidth - pad - halfW - restCx;
-        const minY = pad + halfH - restCy;
-        const maxY = window.innerHeight - pad - halfH - restCy;
-        setOffset({
-          x: Math.max(minX, Math.min(maxX, dx)),
-          y: Math.max(minY, Math.min(maxY, dy)),
-        });
+        const next = clamp(lastPos.x - restCx, lastPos.y - restCy);
+        if (next) setOffset(next);
       }, 400);
     };
 
+    const onResize = () => {
+      const next = clamp(offset.x, offset.y);
+      if (next && (next.x !== offset.x || next.y !== offset.y)) setOffset(next);
+    };
+
     window.addEventListener("mousemove", onMove);
+    window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("resize", onResize);
       clearTimeout(timer);
     };
   }, [offset.x, offset.y]);
